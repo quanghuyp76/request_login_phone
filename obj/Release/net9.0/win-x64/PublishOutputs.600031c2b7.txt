@@ -1,0 +1,7 @@
+C:\Users\Quang Huy\Desktop\login_microsoft\RequestLoginAutherPhone.pdb
+C:\Users\Quang Huy\Desktop\login_microsoft\input\Data.txt
+C:\Users\Quang Huy\Desktop\login_microsoft\input\listProxy.txt
+C:\Users\Quang Huy\Desktop\login_microsoft\input\Thread.txt
+C:\Users\Quang Huy\Desktop\login_microsoft\input\UrlGetOtp.txt
+C:\Users\Quang Huy\Desktop\login_microsoft\input\UserAgain.txt
+C:\Users\Quang Huy\Desktop\login_microsoft\RequestLoginAutherPhone.exe

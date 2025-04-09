@@ -1,0 +1,10 @@
+C:\Users\Quang Huy\Desktop\login_microsoft\RequestLoginAuther.exe
+C:\Users\Quang Huy\Desktop\login_microsoft\input\Data.txt
+C:\Users\Quang Huy\Desktop\login_microsoft\input\listProxy.txt
+C:\Users\Quang Huy\Desktop\login_microsoft\input\Thread.txt
+C:\Users\Quang Huy\Desktop\login_microsoft\input\UrlGetOtp.txt
+C:\Users\Quang Huy\Desktop\login_microsoft\RequestLoginAuther.dll
+C:\Users\Quang Huy\Desktop\login_microsoft\RequestLoginAuther.deps.json
+C:\Users\Quang Huy\Desktop\login_microsoft\RequestLoginAuther.runtimeconfig.json
+C:\Users\Quang Huy\Desktop\login_microsoft\RequestLoginAuther.pdb
+C:\Users\Quang Huy\Desktop\login_microsoft\Newtonsoft.Json.dll
