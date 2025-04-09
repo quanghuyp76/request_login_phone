@@ -71,6 +71,7 @@ namespace Auther.OTP
                 SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls13,
                 AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
             });
+            _client.Timeout = TimeSpan.FromSeconds(30);
             _client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
             _client.DefaultRequestHeaders.Add("accept-encoding", "gzip, deflate, br, zstd");
             _client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
@@ -91,14 +92,11 @@ namespace Auther.OTP
                     SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls13,
                     AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
                 });
-                //if (!string.IsNullOrEmpty(useragain)) // Check if userAgent is provided
-                //{
-                //    _client.DefaultRequestHeaders.UserAgent.ParseAdd(useragain);
-                //}
+                _client.Timeout = TimeSpan.FromSeconds(30);
                 // Script
                 ////////////////////////////////////////////////////////////////////////////////////
                 // Check ip
-                
+
                 string Urlcheckip = "https://ifconfig.co/ip";
                 try
                 {
@@ -121,32 +119,32 @@ namespace Auther.OTP
                 //Console.WriteLine($"Suscces[{phone}] : {useragain}");
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 //Truy cập vào urlRedirect
-                Console.WriteLine($"Suscces[{phone}] : Truy Cập UrlRedirect");
+                Console.WriteLine($"Suscces[{phone}] : Go To Microsoft Entra");
                 string UrlEntra = "https://entra.microsoft.com/signin/index";
                 string? urlRedirect = string.Empty;
                 try
                 {
-                    var messageLoginEntra = new HttpRequestMessage(HttpMethod.Get, UrlEntra);
-                    var responseLoginEntra = await _client.SendAsync(messageLoginEntra);
-                    var contentLoginEntra = await responseLoginEntra.Content.ReadAsStringAsync();
-                    if (!responseLoginEntra.IsSuccessStatusCode)
+                    var messageGotoUrlEntra = new HttpRequestMessage(HttpMethod.Get, UrlEntra);
+                    var responseGotoUrlEntra = await _client.SendAsync(messageGotoUrlEntra);
+                    var contentGotoUrlEntra = await responseGotoUrlEntra.Content.ReadAsStringAsync();
+                    if (!responseGotoUrlEntra.IsSuccessStatusCode)
                     {
-                        Console.WriteLine($"Warning[{phone}] : {responseLoginEntra.StatusCode}");
+                        Console.WriteLine($"Warning[{phone}] : {responseGotoUrlEntra.StatusCode}");
                         return 0;
                     }
-                    urlRedirect = Regex.Match(contentLoginEntra, @"https:\/\/login\.microsoftonline\.com[^\s""]+").Groups[0].Value;
-                    if (urlRedirect == null)
+                    urlRedirect = Regex.Match(contentGotoUrlEntra, @"https:\/\/login\.microsoftonline\.com[^\s""]+").Groups[0].Value;
+                    if (string.IsNullOrEmpty(urlRedirect))
                     {
-                        Console.WriteLine($"Warning[{phone}] : Không tìm thấy url chuyển tiếp");
+                        Console.WriteLine($"Warning[{phone}] : Không tìm thấy Url ReDirect");
                         return 0;
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Warning[{phone}] : {ex.Message}");
+                    Console.WriteLine($"Warning[{phone}] : Go to Microsoft Entra Fail ({ex.Message})");
                     return 0;
                 }
-                Console.WriteLine($"Suscces[{phone}] : Truy Cập Login Entra");
+                Console.WriteLine($"Suscces[{phone}] : Go to Url Redirect");
                 // Truy cập Microsoft Entra
                 string? ApiCanary = string.Empty;
                 string? flowToken = string.Empty;
@@ -154,8 +152,8 @@ namespace Auther.OTP
                 string? clientrequestid = string.Empty;
                 string? uaid = string.Empty;
                 string? urlGetCredentialType = string.Empty;
-                //try
-                //{
+                try
+                {
                     var messageUrlReDirect = new HttpRequestMessage(HttpMethod.Get, urlRedirect);
                     var responseUrlReDirect = await _client.SendAsync(messageUrlReDirect);
                     var contentUrlReDirect = await responseUrlReDirect.Content.ReadAsStringAsync();
@@ -167,16 +165,16 @@ namespace Auther.OTP
                     urlGetCredentialType = "https://login.microsoftonline.com/common/GetCredentialType?mkt=en-US";
                     if (string.IsNullOrEmpty(flowToken) || string.IsNullOrEmpty(ApiCanary) || string.IsNullOrEmpty(urllogin) || string.IsNullOrEmpty(clientrequestid) || string.IsNullOrEmpty(uaid))
                     {
-                        Console.WriteLine($"Warning[{phone}] : Không tìm thấy Data Login Phone");
+                        Console.WriteLine($"Warning[{phone}] : No Found Data Login Phone");
                         return 0;
                     }
-                //}
-                //catch(Exception ex)
-                //{
-                //    Console.WriteLine($"Warning[{phone}] : {ex.Message}");
-                //    return 0;
-                //}
-                
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] : GO to Url Redirect Fail ({ex.Message})");
+                    return 0;
+                }
+
                 // get otp cũ
                 string? otpold = string.Empty;
                 try
@@ -225,10 +223,17 @@ namespace Auther.OTP
                 messageLoginPhone.Headers.Add("priority", "u=1, i");
                 messageLoginPhone.Headers.Add("referer", urlRedirect);
                 messageLoginPhone.Headers.Add("client-request-id", clientrequestid);
-
-
-                var responseLoginPhone = await _client.SendAsync(messageLoginPhone);
-                var contentLoginPhone = await responseLoginPhone.Content.ReadAsStringAsync();
+                string? contentLoginPhone = string.Empty;
+                try
+                {
+                    var responseLoginPhone = await _client.SendAsync(messageLoginPhone);
+                    contentLoginPhone = await responseLoginPhone.Content.ReadAsStringAsync();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] :Sent Phone Fail {ex.Message}");
+                    return 0;
+                }
                 JObject jsonObject = JObject.Parse(contentLoginPhone);
                 string? flowTokenSentOTP = string.Empty;
                 string flowToken1 = Regex.Match(contentLoginPhone, @"""FlowToken"":""([^""]+)""").Groups[1].Value;
@@ -236,6 +241,10 @@ namespace Auther.OTP
                 if (string.IsNullOrEmpty(flowToken1))
                 {
                     Console.WriteLine($"Warning[{phone}] : Sent OTP Fail");
+                    lock (lockObjectOTP)
+                    {
+                        File.AppendAllText($"input\\SentOTPFail.txt", $"{phone}" + Environment.NewLine);
+                    }
                     return 0;
                 }
                 else

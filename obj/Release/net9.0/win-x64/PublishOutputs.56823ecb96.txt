@@ -1,0 +1,8 @@
+C:\Users\Quang Huy\Desktop\Login_Auther_Phone\Request_Login_Phone.pdb
+C:\Users\Quang Huy\Desktop\Login_Auther_Phone\input\Data.txt
+C:\Users\Quang Huy\Desktop\Login_Auther_Phone\input\listProxy.txt
+C:\Users\Quang Huy\Desktop\Login_Auther_Phone\input\SentOTPFail.txt
+C:\Users\Quang Huy\Desktop\Login_Auther_Phone\input\Thread.txt
+C:\Users\Quang Huy\Desktop\Login_Auther_Phone\input\UrlGetOtp.txt
+C:\Users\Quang Huy\Desktop\Login_Auther_Phone\input\UserAgain.txt
+C:\Users\Quang Huy\Desktop\Login_Auther_Phone\Request_Login_Phone.exe

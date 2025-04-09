@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7bHyJB+RBtE=",
+  "dgSpecHash": "Sx6lZ4BFXxk=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\RequestLoginAutherPhone\\RequestLoginAutherPhone.csproj",
+  "projectFilePath": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\Request_Login_Phone.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Quang Huy\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],

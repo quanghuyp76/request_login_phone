@@ -36,14 +36,37 @@ namespace Auther.OTP
 
             while (!int.TryParse(Console.ReadLine(), out sleep) || sleep <= 0)
             {
-                Console.Write("Số vòng lặp không hợp lệ: ");
+                Console.Write("Thời gian giữa các vòng lặp không hợp lệ ");
             }
+            int FilterOTP;
+            Console.Write("Nhập số lượng OTP cần lọc: ");
+            while (!int.TryParse(Console.ReadLine(), out FilterOTP) || FilterOTP <= 0)
+            {
+                Console.Write("Số lượng OTP cần lọc không hợp lệ: ");
+            }
+
+            File.WriteAllText("input\\SentOTPFail.txt", string.Empty);
 
             while (totalLoops > 0)
             {
+                if (FilterOTP > 0)
+                {
+                    string file1 = "input\\data.txt";
+                    string file2 = "input\\SentOTPFail.txt";
+                    PhoneFilter.FilterPhones(file1, file2, FilterOTP);
+                }
+                string content = File.ReadAllText("input\\data.txt");
+
+                // Kiểm tra nếu file không có dữ liệu
+                if (string.IsNullOrEmpty(content))
+                {
+                    Console.WriteLine("File không có dữ liệu.");
+                }
+
+
                 listuseragain =  await File.ReadAllLinesAsync("input\\UserAgain.txt");
 
-                UrlGetOTp = await File.ReadAllTextAsync("input\\UrlGetOtp.txt");
+                UrlGetOTp = await File.ReadAllTextAsync("input\\UrlGetOtp.txt"); 
 
                 listData = new ConcurrentBag<string>(await File.ReadAllLinesAsync("input\\data.txt"));
 
@@ -66,13 +89,13 @@ namespace Auther.OTP
                 }
                 finally
                 {
-                    Console.WriteLine("Done");
+                    Console.WriteLine($"Hoàn thành vòng lặp {totalLoops}");
                     totalLoops = totalLoops - 1;
-                    Console.WriteLine($"Sleep {sleep}");
+                    Console.WriteLine($"Sleep {sleep} ");
                     await Task.Delay(sleep);
                 }
                 if (totalLoops == 0)
-                { Console.WriteLine($"Đã hoàn thành"); }
+                { Console.WriteLine($"Đã hoàn thành chương trình"); }
             }
             Console.ReadKey();
 

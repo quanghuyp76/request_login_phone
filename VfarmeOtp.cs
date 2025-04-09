@@ -20,5 +20,37 @@ namespace Auther.OTP
             }
             return otp;
         }
+
+    }
+    class PhoneFilter
+    {
+        public static void FilterPhones(string file1Path, string file2Path, int maxAllowed)
+        {
+            // Đọc danh sách số trong file1
+            List<string> phonesFile1 = File.ReadAllLines(file1Path)
+                                           .Select(p => p.Trim())
+                                           .Where(p => !string.IsNullOrEmpty(p))
+                                           .ToList();
+
+            // Đọc danh sách số trong file2
+            List<string> phonesFile2 = File.ReadAllLines(file2Path)
+                                           .Select(p => p.Trim())
+                                           .Where(p => !string.IsNullOrEmpty(p))
+                                           .ToList();
+
+            // Đếm số lần xuất hiện trong file2
+            var phoneCounts = phonesFile2.GroupBy(p => p)
+                                         .ToDictionary(g => g.Key, g => g.Count());
+
+            // Lọc lại danh sách file1: chỉ giữ số xuất hiện < maxAllowed lần
+            var filteredPhones = phonesFile1
+                                 .Where(p => !phoneCounts.ContainsKey(p) || phoneCounts[p] < maxAllowed)
+                                 .ToList();
+
+            // Ghi lại file1.txt sau khi lọc
+            File.WriteAllLines(file1Path, filteredPhones);
+
+            Console.WriteLine($"Đã lọc xong OTP. Còn lại {filteredPhones.Count} phone.");
+        }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\RequestLoginAutherPhone\\RequestLoginAutherPhone.csproj": {}
+    "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\RequestLoginAutherPhone.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\RequestLoginAutherPhone\\RequestLoginAutherPhone.csproj": {
+    "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\RequestLoginAutherPhone.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\RequestLoginAutherPhone\\RequestLoginAutherPhone.csproj",
+        "projectUniqueName": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\RequestLoginAutherPhone.csproj",
         "projectName": "RequestLoginAutherPhone",
-        "projectPath": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\RequestLoginAutherPhone\\RequestLoginAutherPhone.csproj",
+        "projectPath": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\RequestLoginAutherPhone.csproj",
         "packagesPath": "C:\\Users\\Quang Huy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\RequestLoginAutherPhone\\obj\\",
+        "outputPath": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
