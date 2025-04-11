@@ -19,6 +19,40 @@ namespace Auther.OTP
         public string useragain { get; set; }
         public required string UrlGetOTP { get; set; }
 
+        public class Loadpage
+        {
+            public int i13 { get; set; }
+            public string login { get; set; }
+            public string loginfmt { get; set; }
+            public int type { get; set; }
+            public int LoginOptions { get; set; }
+            public string SentProofID { get; set; }
+
+            public string purpose { get; set; }
+
+            public string piotc { get; set; }
+
+            public int ps { get; set; }
+ 
+            public string psRNGCDefaultType { get; set; }
+            public string psRNGCEntropy { get; set; }
+            public string psRNGCSLK { get; set; }
+            public string canary { get; set; }
+            public string ctx { get; set; }
+            public string hpgrequestid { get; set; }
+            public string flowToken { get; set; }
+            public string PPSX { get; set; }
+            public int NewUser { get; set; }
+            public string FoundMSAs { get; set; }
+            public int fspost { get; set; }
+            public string i21 { get; set; }
+            public int CookieDisclosure { get; set; }
+            public int IsFidoSupported { get; set; }
+            public int isSignupPost { get; set; }
+            public string DfpArtifact { get; set; }
+            public string i19 { get; set; }
+
+        }
         public class LoginRequest
         {
             public bool CheckPhones { get; set; }
@@ -122,11 +156,12 @@ namespace Auther.OTP
                 Console.WriteLine($"Suscces[{phone}] : Go To Microsoft Entra");
                 string UrlEntra = "https://entra.microsoft.com/signin/index";
                 string? urlRedirect = string.Empty;
+                string? contentGotoUrlEntra = string.Empty;
                 try
                 {
                     var messageGotoUrlEntra = new HttpRequestMessage(HttpMethod.Get, UrlEntra);
                     var responseGotoUrlEntra = await _client.SendAsync(messageGotoUrlEntra);
-                    var contentGotoUrlEntra = await responseGotoUrlEntra.Content.ReadAsStringAsync();
+                    contentGotoUrlEntra = await responseGotoUrlEntra.Content.ReadAsStringAsync();
                     if (!responseGotoUrlEntra.IsSuccessStatusCode)
                     {
                         Console.WriteLine($"Warning[{phone}] : {responseGotoUrlEntra.StatusCode}");
@@ -152,12 +187,20 @@ namespace Auther.OTP
                 string? clientrequestid = string.Empty;
                 string? uaid = string.Empty;
                 string? urlGetCredentialType = string.Empty;
+                string? contentUrlReDirect = string.Empty;
+                string? canaryentra = string.Empty;
+                string? hpgrequestidloadpage = string.Empty;
                 try
                 {
                     var messageUrlReDirect = new HttpRequestMessage(HttpMethod.Get, urlRedirect);
                     var responseUrlReDirect = await _client.SendAsync(messageUrlReDirect);
-                    var contentUrlReDirect = await responseUrlReDirect.Content.ReadAsStringAsync();
+                    contentUrlReDirect = await responseUrlReDirect.Content.ReadAsStringAsync();
+                    if (responseUrlReDirect.Headers.TryGetValues("x-ms-request-id", out var values))
+                    {
+                        hpgrequestidloadpage = values.FirstOrDefault();
+                    }
                     ApiCanary = Regex.Match(contentUrlReDirect, @"""apiCanary"":""([^""]+)""").Groups[1].Value;
+                    canaryentra = Regex.Match(contentUrlReDirect, @"""canary"":""([^""]+)""").Groups[1].Value;
                     flowToken = Regex.Match(contentUrlReDirect, @"""sFT"":""([^""]+)""").Groups[1].Value;
                     urllogin = Regex.Match(contentUrlReDirect, @"\?ctx=([a-zA-Z0-9_-]+)").Groups[1].Value;
                     clientrequestid = Regex.Match(contentUrlReDirect, @"client-request-id=([^\\]+)").Groups[1].Value;
@@ -322,18 +365,21 @@ namespace Auther.OTP
                     }
                     
                 }
-
+                string? contentSentOTP = string.Empty;
+                string? flowTokenLoadpage = string.Empty;
+                string? ctxloadpage = string.Empty;
                 if (count >= 0 && !string.IsNullOrEmpty(otp) && otp != otpold)
                 {
-                    // post otp
+                    ///post otp
                     Console.WriteLine($"Suscces[{phone}] : {otp}");
                     var UrlPostOTP = "https://login.microsoftonline.com/common/PIA/EndAuth";
                     var postOtp = new PostOtp
                     {
                         AdditionalAuthData = otp,
                         FlowToken = flowTokenSentOTP,
-                        Ctx = urllogin,   
+                        Ctx = urllogin,
                     };
+                   
                     var jsonBody1 = JsonConvert.SerializeObject(postOtp);
                     var messageSentOTP = new HttpRequestMessage(HttpMethod.Post, UrlPostOTP);
                     messageSentOTP.Content = new StringContent(jsonBody1, MediaTypeHeaderValue.Parse("application/json"));
@@ -343,13 +389,15 @@ namespace Auther.OTP
                     messageSentOTP.Headers.Add("Hpgact", "1800");
                     messageSentOTP.Headers.Add("priority", "u=1, i");
                     var responseSentOTP = await _client.SendAsync(messageSentOTP);
-                    var contentSentOTP = await responseSentOTP.Content.ReadAsStringAsync();
+                    contentSentOTP = await responseSentOTP.Content.ReadAsStringAsync();
                     JObject jsonSentOTP = JObject.Parse(contentSentOTP);
                     bool success = jsonSentOTP["SasParams"]?["Success"]?.Value<bool>() ?? false;
                     if (success)
                     {
                         Console.WriteLine($"Suscces[{phone}] : ______________________________Confirm OTP Suscces {otp}");
-                        // Continue with further actions
+                        flowTokenLoadpage = jsonSentOTP["FlowToken"]?.ToString();
+                        ctxloadpage = jsonSentOTP["Ctx"]?.ToString();
+                        goto loadpage;
                     }
                     else
                     {
@@ -363,11 +411,22 @@ namespace Auther.OTP
                     return 0;
                 }
 
+            loadpage:
+                
 
-                    
+                Console.WriteLine($"Suscces[{phone}] : Bắt đầu load page {otp}");
+                string UrlLoadPage = "https://login.microsoftonline.com/common/login";
+                var messageloadpage = new HttpRequestMessage(HttpMethod.Post, UrlLoadPage);
+                messageloadpage.Content = new StringContent($"i13=0&login={phone}&loginfmt=%2B{phone.Substring(0, 2)}+{phone.Substring(2, 3)}+{phone.Substring(5, 3)}+{phone.Substring(8, 3)}&SentProofID={phone}&purpose=PublicIdentifierAuth&piotc={otp}&ps=3&psRNGCDefaultType=&psRNGCEntropy=&psRNGCSLK=&canary={canaryentra}&ctx={ctxloadpage}&hpgrequestid={hpgrequestidloadpage}&flowToken={flowTokenLoadpage}&PPSX=&NewUser=1&FoundMSAs=&fspost=0&i21=0&CookieDisclosure=0&IsFidoSupported=1&isSignupPost=0&DfpArtifact=&i19=", MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded"));
+                var responseloadpage = await _client.SendAsync(messageloadpage);
+                var contentloadpage = await responseloadpage.Content.ReadAsStringAsync();
+                return 1;
+
+
             }
             catch(Exception ex)
             {
+                File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\nootp.txt", $"{phone}" + Environment.NewLine);
                 Console.WriteLine($"Warning[{ phone}] : {ex.Message}");
                 return 0;
             }
