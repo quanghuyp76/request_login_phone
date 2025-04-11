@@ -1,30 +1,26 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\",
+  "WorkspaceRootPath": "C:\\Users\\Quang Huy\\Desktop\\code C#\\request_login_phone\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone.csproj|c:\\users\\quang huy\\desktop\\vfarm c#\\request_login_phone\\loginauther.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone.csproj|solutionrelative:loginauther.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone_v1.2.2.csproj|c:\\users\\quang huy\\desktop\\code c#\\request_login_phone\\request_login_phone_v1.2.2.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone_v1.2.2.csproj|solutionrelative:request_login_phone_v1.2.2.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone.csproj|c:\\users\\quang huy\\desktop\\vfarm c#\\request_login_phone\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone_v1.2.2.csproj|c:\\users\\quang huy\\desktop\\code c#\\request_login_phone\\input\\enablesleep.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone_v1.2.2.csproj|solutionrelative:input\\enablesleep.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone.csproj|c:\\users\\quang huy\\desktop\\vfarm c#\\request_login_phone\\input\\data.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone.csproj|solutionrelative:input\\data.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone_v1.2.1.csproj|c:\\users\\quang huy\\desktop\\code c#\\request_login_phone\\loginauther.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone_v1.2.1.csproj|solutionrelative:loginauther.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone.csproj|c:\\users\\quang huy\\desktop\\vfarm c#\\request_login_phone\\input\\sentotpfail.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone.csproj|solutionrelative:input\\sentotpfail.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone_v1.2.1.csproj|c:\\users\\quang huy\\desktop\\code c#\\request_login_phone\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone_v1.2.1.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone.csproj|c:\\users\\quang huy\\desktop\\vfarm c#\\request_login_phone\\input\\urlgetotp.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone.csproj|solutionrelative:input\\urlgetotp.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone.csproj|c:\\users\\quang huy\\desktop\\vfarm c#\\request_login_phone\\vfarmeotp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone.csproj|solutionrelative:vfarmeotp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone_v1.2.1.csproj|c:\\users\\quang huy\\desktop\\code c#\\request_login_phone\\vfarmeotp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{457CE182-BCA9-4AFC-8110-13C6D38A531C}|Request_Login_Phone_v1.2.1.csproj|solutionrelative:vfarmeotp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,91 +30,70 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "LoginAuther.cs",
-              "DocumentMoniker": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\LoginAuther.cs",
+              "DocumentMoniker": "C:\\Users\\Quang Huy\\Desktop\\code C#\\request_login_phone\\LoginAuther.cs",
               "RelativeDocumentMoniker": "LoginAuther.cs",
-              "ToolTip": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\LoginAuther.cs",
+              "ToolTip": "C:\\Users\\Quang Huy\\Desktop\\code C#\\request_login_phone\\LoginAuther.cs",
               "RelativeToolTip": "LoginAuther.cs",
-              "ViewState": "AgIAAIsBAAAAAAAAAAAMwKcBAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAKMAAAAAAAAAAAAAAOoAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-09T05:04:30.798Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UrlGetOtp.txt",
-              "DocumentMoniker": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\input\\UrlGetOtp.txt",
-              "RelativeDocumentMoniker": "input\\UrlGetOtp.txt",
-              "ToolTip": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\input\\UrlGetOtp.txt",
-              "RelativeToolTip": "input\\UrlGetOtp.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAABZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-04-09T10:19:43.332Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SentOTPFail.txt",
-              "DocumentMoniker": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\input\\SentOTPFail.txt",
-              "RelativeDocumentMoniker": "input\\SentOTPFail.txt",
-              "ToolTip": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\input\\SentOTPFail.txt",
-              "RelativeToolTip": "input\\SentOTPFail.txt",
+              "DocumentIndex": 0,
+              "Title": "Request_Login_Phone_v1.2.2.csproj",
+              "DocumentMoniker": "C:\\Users\\Quang Huy\\Desktop\\code C#\\request_login_phone\\Request_Login_Phone_v1.2.2.csproj",
+              "RelativeDocumentMoniker": "Request_Login_Phone_v1.2.2.csproj",
+              "ToolTip": "C:\\Users\\Quang Huy\\Desktop\\code C#\\request_login_phone\\Request_Login_Phone_v1.2.2.csproj",
+              "RelativeToolTip": "Request_Login_Phone_v1.2.2.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-04-09T10:18:05.501Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Data.txt",
-              "DocumentMoniker": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\input\\Data.txt",
-              "RelativeDocumentMoniker": "input\\Data.txt",
-              "ToolTip": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\input\\Data.txt",
-              "RelativeToolTip": "input\\Data.txt",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
-              "WhenOpened": "2025-04-09T06:53:59.091Z",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-04-11T16:37:07.152Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "EnableSleep.txt",
+              "DocumentMoniker": "C:\\Users\\Quang Huy\\Desktop\\code C#\\request_login_phone\\input\\EnableSleep.txt",
+              "RelativeDocumentMoniker": "input\\EnableSleep.txt",
+              "ToolTip": "C:\\Users\\Quang Huy\\Desktop\\code C#\\request_login_phone\\input\\EnableSleep.txt",
+              "RelativeToolTip": "input\\EnableSleep.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-04-11T16:38:07.721Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\Quang Huy\\Desktop\\code C#\\request_login_phone\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\Program.cs",
+              "ToolTip": "C:\\Users\\Quang Huy\\Desktop\\code C#\\request_login_phone\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAhwC8AAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAowDQAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-09T05:04:33.118Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "VfarmeOtp.cs",
-              "DocumentMoniker": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\VfarmeOtp.cs",
+              "DocumentMoniker": "C:\\Users\\Quang Huy\\Desktop\\code C#\\request_login_phone\\VfarmeOtp.cs",
               "RelativeDocumentMoniker": "VfarmeOtp.cs",
-              "ToolTip": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\VfarmeOtp.cs",
+              "ToolTip": "C:\\Users\\Quang Huy\\Desktop\\code C#\\request_login_phone\\VfarmeOtp.cs",
               "RelativeToolTip": "VfarmeOtp.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABoAAAAAAAAAAAA9wDMAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-09T05:04:32.093Z",
               "EditorCaption": ""

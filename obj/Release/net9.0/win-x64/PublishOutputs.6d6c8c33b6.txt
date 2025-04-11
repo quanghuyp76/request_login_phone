@@ -1,0 +1,9 @@
+C:\Users\Quang Huy\Desktop\Tool Login Entra Phonev 1.2\Request_Login_Phone_v1.2.2.pdb
+C:\Users\Quang Huy\Desktop\Tool Login Entra Phonev 1.2\input\Data.txt
+C:\Users\Quang Huy\Desktop\Tool Login Entra Phonev 1.2\input\listProxy.txt
+C:\Users\Quang Huy\Desktop\Tool Login Entra Phonev 1.2\input\Nootp.txt
+C:\Users\Quang Huy\Desktop\Tool Login Entra Phonev 1.2\input\SentOTPFail.txt
+C:\Users\Quang Huy\Desktop\Tool Login Entra Phonev 1.2\input\Thread.txt
+C:\Users\Quang Huy\Desktop\Tool Login Entra Phonev 1.2\input\UrlGetOtp.txt
+C:\Users\Quang Huy\Desktop\Tool Login Entra Phonev 1.2\input\UserAgain.txt
+C:\Users\Quang Huy\Desktop\Tool Login Entra Phonev 1.2\Request_Login_Phone_v1.2.2.exe

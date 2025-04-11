@@ -1,7 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Net;
 using System.Text;
-using System.Threading;
 
 namespace Auther.OTP
 {
@@ -11,7 +10,7 @@ namespace Auther.OTP
 
         private static string[] listuseragain = [];
 
-        private static string[] listProxy= [];
+        private static string[] listProxy = [];
 
         private static string UrlGetOTp { get; set; }
 
@@ -44,6 +43,41 @@ namespace Auther.OTP
             {
                 Console.Write("Số lượng OTP cần lọc không hợp lệ: ");
             }
+            // chờ time
+            bool enableStartupDelay = false;
+            string sleepFlagPath = "input\\EnableSleep.txt";
+            if (File.Exists(sleepFlagPath))
+            {
+                string flagContent = File.ReadAllText(sleepFlagPath).Trim().ToLower();
+                enableStartupDelay = flagContent == "true";
+            }
+            if (enableStartupDelay)
+            {
+                Console.Write("⏱ Nhập số giờ cần đợi: ");
+                int waitHours;
+                while (!int.TryParse(Console.ReadLine(), out waitHours) || waitHours < 0)
+                {
+                    Console.Write("Không hợp lệ. Nhập lại số giờ: ");
+                }
+
+                Console.Write("⏱ Nhập số phút cần đợi: ");
+                int waitMinutes;
+                while (!int.TryParse(Console.ReadLine(), out waitMinutes) || waitMinutes < 0)
+                {
+                    Console.Write("Không hợp lệ. Nhập lại số phút: ");
+                }
+
+                // Gọi hàm chờ
+                await WaitByDuration(waitHours, waitMinutes);
+            }
+            else
+            {
+                Console.Write("Bỏ qua sleep");
+            }
+
+
+
+
 
             File.WriteAllText("input\\SentOTPFail.txt", string.Empty);
 
@@ -64,9 +98,9 @@ namespace Auther.OTP
                 }
 
 
-                listuseragain =  await File.ReadAllLinesAsync("input\\UserAgain.txt");
+                listuseragain = await File.ReadAllLinesAsync("input\\UserAgain.txt");
 
-                UrlGetOTp = await File.ReadAllTextAsync("input\\UrlGetOtp.txt"); 
+                UrlGetOTp = await File.ReadAllTextAsync("input\\UrlGetOtp.txt");
 
                 listData = new ConcurrentBag<string>(await File.ReadAllLinesAsync("input\\data.txt"));
 
@@ -91,15 +125,18 @@ namespace Auther.OTP
                 {
                     Console.WriteLine($"Hoàn thành vòng lặp {totalLoops}");
                     totalLoops = totalLoops - 1;
-                    Console.WriteLine($"Sleep {sleep} ");
-                    await Task.Delay(sleep);
+                    await WaitSeconds(sleep);
                 }
                 if (totalLoops == 0)
-                { Console.WriteLine($"Đã hoàn thành chương trình"); }
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"Đã hoàn thành chương trình"); 
+                }
             }
             Console.ReadKey();
 
         }
+
 
         static async Task RunMain(int thread)
         {
@@ -137,7 +174,6 @@ namespace Auther.OTP
                 else
                 {
                     Console.WriteLine("Proxy không hợp lệ");
-                    Console.ReadKey();
                 }
 
                 LoginAuther loginAuther = new LoginAuther(useragain) { UrlGetOTP = UrlGetOTp, webProxy = webProxy };
@@ -148,5 +184,51 @@ namespace Auther.OTP
         private static object lockObjectLoginFail = new object();
         public static HttpClient httpClient = new HttpClient();
         public static HttpClient httpClientScrape = new HttpClient();
+
+
+        static async Task WaitByDuration(int hours, int minutes)
+        {
+            int totalSeconds = (hours * 3600) + (minutes * 60); // Tổng số giây
+
+            if (totalSeconds <= 0)
+            {
+                Console.WriteLine("⛔ Thời gian chờ phải lớn hơn 0 giây.");
+                return;
+            }
+
+            // In thông báo bắt đầu đếm ngược
+            Console.WriteLine($"⏳ Bắt đầu đếm ngược {totalSeconds} giây để chạy tool...");
+
+            for (int i = totalSeconds; i > 0; i--)
+            {
+                int remainingMinutes = i / 60;
+                int remainingSeconds = i % 60;
+
+                // Di chuyển con trỏ về đầu dòng (dòng hiện tại)
+                Console.SetCursorPosition(0, Console.CursorTop);
+
+                // Xóa dòng trước đó và in lại thông báo mới
+                Console.Write(new string(' ', Console.WindowWidth)); // Xóa dòng cũ
+                Console.SetCursorPosition(0, Console.CursorTop); // Di chuyển lại về đầu dòng
+                Console.Write($"====> Còn {remainingMinutes} phút {remainingSeconds} giây nữa sẽ chạy<====");
+
+                // Delay 1 giây
+                await Task.Delay(1000);
+            }
+        }
+
+        private static async Task WaitSeconds(int seconds)
+        {
+            if (seconds <= 0) return;
+            for (int i = seconds; i > 0; i--)
+            {
+                Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write($"===>>>> Chờ {i} giây để bắt đầu vòng lặp mới");
+                await Task.Delay(1000);
+            }
+        }
+
     }
 }

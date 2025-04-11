@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35806.99
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Request_Login_Phone", "Request_Login_Phone.csproj", "{457CE182-BCA9-4AFC-8110-13C6D38A531C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Request_Login_Phone_v1.2.2", "Request_Login_Phone_v1.2.2.csproj", "{457CE182-BCA9-4AFC-8110-13C6D38A531C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

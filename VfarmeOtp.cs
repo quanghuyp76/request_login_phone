@@ -49,7 +49,7 @@ namespace Auther.OTP
 
             // Ghi lại file1.txt sau khi lọc
             File.WriteAllLines(file1Path, filteredPhones);
-
+            Console.WriteLine();
             Console.WriteLine($"Đã lọc xong OTP. Còn lại {filteredPhones.Count} phone.");
         }
     }

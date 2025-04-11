@@ -105,7 +105,7 @@ namespace Auther.OTP
                 SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls13,
                 AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
             });
-            _client.Timeout = TimeSpan.FromSeconds(30);
+            _client.Timeout = TimeSpan.FromSeconds(15);
             _client.DefaultRequestHeaders.Add("accept", "application/json, text/plain, */*");
             _client.DefaultRequestHeaders.Add("accept-encoding", "gzip, deflate, br, zstd");
             _client.DefaultRequestHeaders.Add("accept-language", "en-US,en;q=0.9");
@@ -126,7 +126,7 @@ namespace Auther.OTP
                     SslProtocols = System.Security.Authentication.SslProtocols.Tls12 | System.Security.Authentication.SslProtocols.Tls13,
                     AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
                 });
-                _client.Timeout = TimeSpan.FromSeconds(30);
+                _client.Timeout = TimeSpan.FromSeconds(15);
                 // Script
                 ////////////////////////////////////////////////////////////////////////////////////
                 // Check ip
@@ -408,6 +408,7 @@ namespace Auther.OTP
                 else
                 {
                     Console.WriteLine($"Suscces[{phone}] : Không có OTP");
+                    File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\Nootp.txt", $"{phone}|{otp}" + Environment.NewLine);
                     return 0;
                 }
 
@@ -419,9 +420,8 @@ namespace Auther.OTP
                 var messageloadpage = new HttpRequestMessage(HttpMethod.Post, UrlLoadPage);
                 messageloadpage.Content = new StringContent($"i13=0&login={phone}&loginfmt=%2B{phone.Substring(0, 2)}+{phone.Substring(2, 3)}+{phone.Substring(5, 3)}+{phone.Substring(8, 3)}&SentProofID={phone}&purpose=PublicIdentifierAuth&piotc={otp}&ps=3&psRNGCDefaultType=&psRNGCEntropy=&psRNGCSLK=&canary={canaryentra}&ctx={ctxloadpage}&hpgrequestid={hpgrequestidloadpage}&flowToken={flowTokenLoadpage}&PPSX=&NewUser=1&FoundMSAs=&fspost=0&i21=0&CookieDisclosure=0&IsFidoSupported=1&isSignupPost=0&DfpArtifact=&i19=", MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded"));
                 var responseloadpage = await _client.SendAsync(messageloadpage);
-                var contentloadpage = await responseloadpage.Content.ReadAsStringAsync();
+                var contentloadpage = await responseloadpage.Content.ReadAsStringAsync();                
                 return 1;
-
 
             }
             catch(Exception ex)

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Request_Login_Phone")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4a656f96797ddb809f6dab0e65a092786138060d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c902c62c1b22dd22ed8ff4fd0019ab1ff4a6d2dc")]
 [assembly: System.Reflection.AssemblyProductAttribute("Request_Login_Phone")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Request_Login_Phone")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
