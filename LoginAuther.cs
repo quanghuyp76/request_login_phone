@@ -18,7 +18,59 @@ namespace Auther.OTP
 
         public string useragain { get; set; }
         public required string UrlGetOTP { get; set; }
+        public class SentPhone
+        {
+            public string AuthMethodId { get; set; }
+            public string Method { get; set; }
+            public string ctx { get; set; }
+            public string flowToken { get; set; }
+        }
 
+        public class SentOTP
+        {
+            public string Method { get; set; }
+            public string SessionId { get; set; }
+            public string FlowToken { get; set; }
+            public string Ctx { get; set; }
+            public string AuthMethodId { get; set; }
+            public string AdditionalAuthData { get; set; }
+            public int PollCount { get; set; }
+        }
+        public class SentPass
+        {
+            public int i13 { get; set; }
+            public string login { get; set; }
+            public string loginfmt { get; set; }
+            public int type { get; set; }
+            public int LoginOptions { get; set; }
+            public string lrt { get; set; }
+
+            public string lrtPartition { get; set; }
+
+            public string hisRegion { get; set; }
+
+            public string hisScaleUnit { get; set; }
+            public string passwd { get; set; }
+            public int ps { get; set; }
+            public string psRNGCDefaultType { get; set; }
+            public string psRNGCEntropy { get; set; }
+            public string psRNGCSLK { get; set; }
+            public string canary { get; set; }
+            public string ctx { get; set; }
+            public string hpgrequestid { get; set; }
+            public string flowToken { get; set; }
+            public string PPSX { get; set; }
+            public int NewUser { get; set; }
+            public string FoundMSAs { get; set; }
+            public int fspost { get; set; }
+            public string i21 { get; set; }
+            public int CookieDisclosure { get; set; }
+            public int IsFidoSupported { get; set; }
+            public int isSignupPost { get; set; }
+            public string DfpArtifact { get; set; }
+            public string i19 { get; set; }
+
+        }
         public class Loadpage
         {
             public int i13 { get; set; }
@@ -90,8 +142,30 @@ namespace Auther.OTP
             public string OriginalRequest { get; set;}
         }
 
+        public static string UnescapeUnicode(string input)
+        {
+            return Regex.Replace(input, @"\\u([0-9A-Fa-f]{4})", match =>
+            {
+                var unicode = Convert.ToInt32(match.Groups[1].Value, 16);
+                return ((char)unicode).ToString();
+            });
+        }
 
+        public static Dictionary<string, string> ToFormDictionary(object obj)
+        {
+            var dict = new Dictionary<string, string>();
+            var jObj = JObject.FromObject(obj);
 
+            foreach (var prop in jObj)
+            {
+                if (prop.Value != null)
+                {
+                    dict[prop.Key] = prop.Value.ToString();
+                }
+            }
+
+            return dict;
+        }
 
         public LoginAuther(string useragain)
         {
@@ -112,7 +186,7 @@ namespace Auther.OTP
             _client.DefaultRequestHeaders.UserAgent.ParseAdd(useragain);
         }
 
-        public async Task<byte> LoginAsysc(string phone, string useragain)
+        public async Task<byte> LoginAsysc(string email, string password ,string phone, string useragain)
         {
             try
             {
@@ -394,7 +468,7 @@ namespace Auther.OTP
                     bool success = jsonSentOTP["SasParams"]?["Success"]?.Value<bool>() ?? false;
                     if (success)
                     {
-                        Console.WriteLine($"Suscces[{phone}] : ______________________________Confirm OTP Suscces {otp}");
+                        Console.WriteLine($"Suscces[{phone}] : ______________________________Confirm OTP1 Suscces {otp}");
                         flowTokenLoadpage = jsonSentOTP["FlowToken"]?.ToString();
                         ctxloadpage = jsonSentOTP["Ctx"]?.ToString();
                         goto loadpage;
@@ -417,10 +491,370 @@ namespace Auther.OTP
 
                 Console.WriteLine($"Suscces[{phone}] : Bắt đầu load page {otp}");
                 string UrlLoadPage = "https://login.microsoftonline.com/common/login";
-                var messageloadpage = new HttpRequestMessage(HttpMethod.Post, UrlLoadPage);
-                messageloadpage.Content = new StringContent($"i13=0&login={phone}&loginfmt=%2B{phone.Substring(0, 2)}+{phone.Substring(2, 3)}+{phone.Substring(5, 3)}+{phone.Substring(8, 3)}&SentProofID={phone}&purpose=PublicIdentifierAuth&piotc={otp}&ps=3&psRNGCDefaultType=&psRNGCEntropy=&psRNGCSLK=&canary={canaryentra}&ctx={ctxloadpage}&hpgrequestid={hpgrequestidloadpage}&flowToken={flowTokenLoadpage}&PPSX=&NewUser=1&FoundMSAs=&fspost=0&i21=0&CookieDisclosure=0&IsFidoSupported=1&isSignupPost=0&DfpArtifact=&i19=", MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded"));
-                var responseloadpage = await _client.SendAsync(messageloadpage);
-                var contentloadpage = await responseloadpage.Content.ReadAsStringAsync();                
+                string? contentloadpages0 = string.Empty;
+                try
+                {
+                    var messageloadpage = new HttpRequestMessage(HttpMethod.Post, UrlLoadPage);
+                    messageloadpage.Content = new StringContent($"i13=0&login={phone}&loginfmt=%2B{phone.Substring(0, 2)}+{phone.Substring(2, 3)}+{phone.Substring(5, 3)}+{phone.Substring(8, 3)}&SentProofID={phone}&purpose=PublicIdentifierAuth&piotc={otp}&ps=3&psRNGCDefaultType=&psRNGCEntropy=&psRNGCSLK=&canary={canaryentra}&ctx={ctxloadpage}&hpgrequestid={hpgrequestidloadpage}&flowToken={flowTokenLoadpage}&PPSX=&NewUser=1&FoundMSAs=&fspost=0&i21=0&CookieDisclosure=0&IsFidoSupported=1&isSignupPost=0&DfpArtifact=&i19=", MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded"));
+                    var responseloadpage = await _client.SendAsync(messageloadpage);
+                    if (responseloadpage.Headers.TryGetValues("x-ms-request-id", out var values1))
+                    {
+                        hpgrequestidloadpage = values1.FirstOrDefault();
+                    }
+                    contentloadpages0 = await responseloadpage.Content.ReadAsStringAsync();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] :Load Page Fail ({ex.Message})");
+                    return 0;
+                }
+                string PageCases0 = Regex.Match(contentloadpages0, @"<meta\s+name=""PageID""\s+content=""([^""]+)""").Groups[1].Value;
+                if(PageCases0== "KmsiInterrupt")
+                {
+                    Console.WriteLine($"Warning[{phone}] :Load Page Suscces Go to Kmsi");
+                    goto Kmsi;
+                }
+
+
+
+
+
+            Kmsi:
+                string sCtxLoadPages0 = Regex.Match(contentloadpages0, @"""sCtx"":""([^""]+)""").Groups[1].Value;
+                string flowTokenLoadPages0 = Regex.Match(contentloadpages0, @"""sFT"":""([^""]+)""").Groups[1].Value;
+                string canaryLoadPages0 = Regex.Match(contentloadpages0, @"""canary"":""([^""]+)""").Groups[1].Value;
+                string apicanaryLoadPages0 = Regex.Match(contentloadpages0, @"""apiCanary"":""([^""]+)""").Groups[1].Value;
+                string UrlKmsi = "https://login.microsoftonline.com/kmsi";
+                string? contentKmsi = string.Empty;
+                var messageKmsi = new HttpRequestMessage(HttpMethod.Post, UrlKmsi);
+                messageKmsi.Headers.Add("priority", "u=0, i");
+                messageKmsi.Headers.Add("referer", "https://login.microsoftonline.com/common/login");
+                messageKmsi.Headers.Add("Origin", "https://login.microsoftonline.com");
+                messageKmsi.Content = new StringContent($"LoginOptions=1&type=28&ctx={sCtxLoadPages0}&hpgrequestid={hpgrequestidloadpage}&flowToken={flowTokenLoadPages0}&canary={apicanaryLoadPages0} ", MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded"));
+                try
+                {
+                    Console.WriteLine($"Suscces[{phone}] : Go To Kmsi Suscces");
+                    var responseKmsi = await _client.SendAsync(messageKmsi);
+                    contentKmsi = await responseKmsi.Content.ReadAsStringAsync();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] : Go to Kmsi Fail ({ex.Message})");
+                    return 0;
+                }
+                string? codeKmsi = Regex.Match(contentKmsi, @"<input[^>]*name\s*=\s*""code""[^>]*value\s*=\s*""([^""]+)""").Groups[1].Value;
+                string? id_tokenKmsi = Regex.Match(contentKmsi, @"<input[^>]*name\s*=\s*""id_token""[^>]*value\s*=\s*""([^""]+)""").Groups[1].Value;
+                string? stateKmsi = Regex.Match(contentKmsi, @"<input[^>]*name\s*=\s*""state""[^>]*value\s*=\s*""([^""]+)""").Groups[1].Value;
+                string? session_stateKmsi = Regex.Match(contentKmsi, @"<input[^>]*name\s*=\s*""session_state""[^>]*value\s*=\s*""([^""]+)""").Groups[1].Value;
+                string? correlation_idKmsi = Regex.Match(contentKmsi, @"<input[^>]*name\s*=\s*""correlation_id""[^>]*value\s*=\s*""([^""]+)""").Groups[1].Value;
+                Console.WriteLine($"Suscces[{phone}] : Go To ReDirect KmsiInterrupt 1");
+                if (string.IsNullOrEmpty(codeKmsi) || string.IsNullOrEmpty(id_tokenKmsi) || string.IsNullOrEmpty(stateKmsi) || string.IsNullOrEmpty(session_stateKmsi) || string.IsNullOrEmpty(correlation_idKmsi))
+                {
+                    Console.WriteLine($"Warning[{phone}] : No Found Data Kmsi");
+                    return 0;
+                }
+                string? UrlKmsiIndexs0 = "https://entra.microsoft.com/signin/index";
+                string? contentKmsiIndexs0 = string.Empty;
+                var messageKmsiIndexs0 = new HttpRequestMessage(HttpMethod.Post, UrlKmsiIndexs0);
+                messageKmsiIndexs0.Headers.Add("origin", "https://login.microsoftonline.com");
+                messageKmsiIndexs0.Content = new StringContent($"code={codeKmsi}&id_token={id_tokenKmsi}&state={stateKmsi}&session_state={session_stateKmsi}&correlation_id={correlation_idKmsi}", MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded"));
+                try
+                {
+                    var responseKmsiIndexs0 = await _client.SendAsync(messageKmsiIndexs0);
+                    contentKmsiIndexs0 = await responseKmsiIndexs0.Content.ReadAsStringAsync();
+                    if (!responseKmsiIndexs0.IsSuccessStatusCode)
+                    {
+                        Console.WriteLine($"Warning[{phone}] : Go to Kmsi Index Fail ({responseKmsiIndexs0.StatusCode})");
+                        return 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] : Go to Kmsi Index Fail ({ex.Message})");
+                    return 0;
+                }
+                var UrlReDirectKmsis0 = Regex.Match(contentKmsiIndexs0, @"MsPortalImpl\.redirectToUri\(""([^""]+)""\)").Groups[1].Value;
+                UrlReDirectKmsis0 = UnescapeUnicode(UrlReDirectKmsis0);
+                string? contentGotoReDirectKmsis0 = string.Empty;
+                if (string.IsNullOrEmpty(UrlReDirectKmsis0))
+                {
+                    Console.WriteLine($"Warning[{phone}] : Go to ReDirectKmsi Fail");
+                    return 0;
+                }
+                try
+                {
+                    var messageGotoReDirectKmsis0 = new HttpRequestMessage(HttpMethod.Get, UrlReDirectKmsis0);
+                    var responseGotoReDirectKmsis0 = await _client.SendAsync(messageGotoReDirectKmsis0);
+                    contentGotoReDirectKmsis0 = await responseGotoReDirectKmsis0.Content.ReadAsStringAsync();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] : Go to ReDirectKmsi Fail 1 ({ex.Message})");
+                    return 0;
+                }
+
+                string? UrlReDirectKmsis10 = Regex.Match(contentGotoReDirectKmsis0, @"https:\/\/login\.microsoftonline\.com[^\s""]+").Groups[0].Value;
+                string? contentGotoReDirectKmsis10 = string.Empty;
+                string? hpgrequestidSentPhone = string.Empty;
+                if (string.IsNullOrEmpty(UrlReDirectKmsis10))
+                {
+                    Console.WriteLine($"Warning[{phone}] : No Found Url ReDirectKmsi1");
+                    return 0;
+                }
+                try
+                {
+                    Console.WriteLine($"Suscces[{phone}] : Go To ReDirect KmsiInterrupt 2");
+                    var messageGotoReDirectKmsis10 = new HttpRequestMessage(HttpMethod.Get, UrlReDirectKmsis10);
+                    var responseGotoReDirectKmsis10 = await _client.SendAsync(messageGotoReDirectKmsis10);
+                    contentGotoReDirectKmsis10 = await responseGotoReDirectKmsis10.Content.ReadAsStringAsync();
+                    if (responseGotoReDirectKmsis10.Headers.TryGetValues("x-ms-request-id", out var values0))
+                    {
+                        hpgrequestidSentPhone = values0.FirstOrDefault();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] : Go to ReDirectKmsi 2 Fail ({ex.Message})");
+                    return 0;
+                }
+                string usernameGotoRedirectKmsi = Regex.Match(contentGotoReDirectKmsis10, @"""Username"":""([^""]+)""").Groups[1].Value;
+                string canaryGotoRedirectKmsi = Regex.Match(contentGotoReDirectKmsis10, @"""canary"":""([^""]+)""").Groups[1].Value;
+                string flowTokenGotoRedirectKmsi = Regex.Match(contentGotoReDirectKmsis10, @"""sFT"":""([^""]+)""").Groups[1].Value;
+                string sCtxGotoRedirectKmsi = Regex.Match(contentGotoReDirectKmsis10, @"""sCtx"":""([^""]+)""").Groups[1].Value;
+                string Urlpost0GotoRedirectKmsi = Regex.Match(contentGotoReDirectKmsis10, @"""urlPost"":""([^""]+)""").Groups[1].Value;
+                string UrlpostGotoRedirectKmsi = "https://login.microsoftonline.com" + Urlpost0GotoRedirectKmsi;
+                string apicanaryGotoRedirectKmsi = Regex.Match(contentGotoReDirectKmsis10, @"""apiCanary"":""([^""]+)""").Groups[1].Value;
+
+                var messagesentpasss0 = new HttpRequestMessage(HttpMethod.Post, UrlpostGotoRedirectKmsi);
+                messagesentpasss0.Headers.Add("origin", "https://login.microsoftonline.com");
+                var BodySentPass = new SentPass
+                {
+                    i13 = 0,
+                    login = usernameGotoRedirectKmsi,
+                    loginfmt = usernameGotoRedirectKmsi,
+                    type = 11,
+                    LoginOptions = 3,
+                    lrt = null,
+                    lrtPartition = null,
+                    hisRegion = null,
+                    hisScaleUnit = null,
+                    passwd = password,
+                    ps = 2,
+                    psRNGCDefaultType = null,
+                    psRNGCEntropy = null,
+                    psRNGCSLK = null,
+                    canary = canaryGotoRedirectKmsi,
+                    ctx = sCtxGotoRedirectKmsi,
+                    hpgrequestid = hpgrequestidSentPhone,
+                    flowToken = flowTokenGotoRedirectKmsi,
+                    PPSX = null,
+                    NewUser = 1,
+                    FoundMSAs = null,
+                    fspost = 0,
+                    i21 = null,
+                    CookieDisclosure = 0,
+                    IsFidoSupported = 1,
+                    isSignupPost = 0,
+                    DfpArtifact = null,
+                    i19 = null,
+                };
+                string? contentsentpasss0 = string.Empty;
+                string? UrlSentPhone = string.Empty;
+                string? sCtxSentPhone = string.Empty;
+                string? flowTokenSentPhone = string.Empty;
+                var formDataSentPass = ToFormDictionary(BodySentPass);
+                messagesentpasss0.Content = new FormUrlEncodedContent(formDataSentPass);
+                var responsesentpasss0 = await _client.SendAsync(messagesentpasss0);
+                contentsentpasss0 = await responsesentpasss0.Content.ReadAsStringAsync();
+                string PageCase1 = Regex.Match(contentsentpasss0, @"<meta\s+name=""PageID""\s+content=""([^""]+)""").Groups[1].Value;
+                if (PageCase1 == "ConvergedTFA")
+                {
+                    UrlSentPhone = Regex.Match(contentsentpasss0, @"""urlBeginAuth""\s*:\s*""([^""]+)""").Groups[1].Value;
+                    if (UrlSentPhone == "https://login.microsoftonline.com/common/SAS/BeginAuth")
+                    {
+                        sCtxSentPhone = Regex.Match(contentsentpasss0, @"""sCtx"":""([^""]+)""").Groups[1].Value;
+                        flowTokenSentPhone = Regex.Match(contentsentpasss0, @"""sFT"":""([^""]+)""").Groups[1].Value;
+                        goto OneWaySMS;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Warning[{phone}] : No Found Url Sent Phone");
+                    }
+                }
+
+            OneWaySMS:
+                UrlSentPhone = "https://login.microsoftonline.com/common/SAS/BeginAuth";
+
+                SentPhone sentPhone = new SentPhone
+                {
+                    AuthMethodId = "OneWaySMS",
+                    Method = "BeginAuth",
+                    ctx = sCtxSentPhone,
+                    flowToken = flowTokenSentPhone,
+                };
+                var jsonBodyPhone = JsonConvert.SerializeObject(sentPhone);
+                var messageSentPhone = new HttpRequestMessage(HttpMethod.Post, UrlSentPhone);
+                messageSentPhone.Headers.Add("Canary", apicanaryGotoRedirectKmsi);
+                messageSentPhone.Headers.Add("Hpgid", "1114");
+                messageSentPhone.Headers.Add("Hpgact", "2000");
+                messageSentPhone.Headers.Add("origin", "https://login.microsoftonline.com");
+                messageSentPhone.Headers.Add("priority", "u=1, i");
+                messageSentPhone.Headers.Add("Hpgrequestid", hpgrequestidSentPhone);
+                messageSentPhone.Headers.Add("client-request-id", clientrequestid);
+                messageSentPhone.Content = new StringContent(jsonBodyPhone, MediaTypeHeaderValue.Parse("application/json"));
+                string? sessionIdSentPhone = string.Empty;
+                string? ctxSentPhone = string.Empty;
+                try
+                {
+                    var responseSentPhone = await _client.SendAsync(messageSentPhone);
+                    var contentSentPhone = await responseSentPhone.Content.ReadAsStringAsync();
+                    JObject jsonSentPhone = JObject.Parse(contentSentPhone);
+                    bool isSuccess = jsonSentPhone["Success"]?.ToObject<bool>() == true;
+                    if (isSuccess)
+                    {
+                        Console.WriteLine($"Suscces[{phone}] : Sent OTP Suscces");
+                    }
+                    else
+                    {
+                        lock (lockObjectOTP)
+                        {
+                            File.AppendAllText($"input\\SentOTPFail.txt", $"{email}|{password}|{phone}" + Environment.NewLine);
+                        }
+                        Console.WriteLine($"Suscces[{phone}] : Sent OTP Fail 0");
+                        return 0;
+                    }
+                    flowTokenSentPhone = jsonSentPhone["FlowToken"]?.ToString();
+                    sessionIdSentPhone = jsonSentPhone["SessionId"]?.ToString();
+                    ctxSentPhone = jsonSentPhone["Ctx"]?.ToString();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] : sent phone({ex.Message})");
+                    return 0;
+                }
+
+                string? otpold1 = string.Empty;
+                try
+                {
+                    otpold1 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
+                    if (!string.IsNullOrEmpty(otpold))
+                    {
+                        Console.WriteLine($"Suscces[{phone}] : otpold1 {otpold1}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Suscces[{phone}] : NO OTPOLD");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] : {ex.Message}");
+                    return 0;
+                }
+
+
+
+                string? otp1 = string.Empty;
+                int count1 = 10;
+                Console.WriteLine($"Suscces[{phone}] : GetOTP");
+                while (count1 > 0)
+                {
+                    try
+                    {
+                        otp1 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
+                        if (!string.IsNullOrEmpty(otp1) && otp1 != otpold1)
+                        {
+                            //Console.WriteLine($"Suscces[{phone}] : {otp}");
+                            string dirPath = $"output\\{DateTime.Now:dd_MM_yyyy}";
+                            Directory.CreateDirectory(dirPath); // Tạo nếu chưa có
+                            lock (lockObjectOTP)
+                            {
+                                File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\phoneUsed.txt", $"{phone}" + Environment.NewLine);
+                                File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\otp.txt", $"{phone}|{otp}" + Environment.NewLine);
+                            }
+                            break;
+                        }
+
+                        count--;
+                        await Task.Delay(3000);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Warning[{phone}] : get otp({ex.Message})");
+                        return 0;
+                    }
+
+                }
+
+                if (count >= 0 && !string.IsNullOrEmpty(otp1) && otp1 != otpold1)
+                {
+                    // post otp
+                    Console.WriteLine($"Suscces[{phone}] : {otp1}");
+                    var UrlSentOTP = "https://login.microsoftonline.com/common/SAS/EndAuth";
+                    var sentOTP = new SentOTP
+                    {
+                        Method = "EndAuth",
+                        SessionId = sessionIdSentPhone,
+                        FlowToken = flowTokenSentPhone,
+                        Ctx = ctxSentPhone,
+                        AuthMethodId = "OneWaySMS",
+                        AdditionalAuthData = otp1,
+                        PollCount = 1,
+                    };
+                    var jsonBodySentOTP = JsonConvert.SerializeObject(sentOTP);
+                    try
+                    {
+                        var messageSentOTP = new HttpRequestMessage(HttpMethod.Post, UrlSentOTP);
+                        messageSentOTP.Content = new StringContent(jsonBodySentOTP, MediaTypeHeaderValue.Parse("application/json"));
+                        messageSentOTP.Headers.Add("client-request-id", clientrequestid);
+                        //messageSentOTP.Headers.Add("canary", apiCanaryLoginPass);
+                        messageSentOTP.Headers.Add("Hpgact", "2001");
+                        messageSentOTP.Headers.Add("Hpgid", "1114");
+                        var responseSentOTP = await _client.SendAsync(messageSentOTP);
+                        var contentSentOTP1 = await responseSentOTP.Content.ReadAsStringAsync();
+                        JObject jsonSentOTP = JObject.Parse(contentSentOTP1);
+                        bool isSuccess1 = jsonSentOTP["Success"]?.ToObject<bool>() == true;
+                        if (isSuccess1)
+                        {
+                            Console.WriteLine($"Suscces[{phone}] : ______________________________Confirm OTP2 Suscces {otp1}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Suscces[{phone}] : ______________________________Confirm OTP2 Fail {otp1}");
+                            return 0;
+                        }
+                        return 1;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Warning[{phone}] : comfirm OTP fail({ex.Message})");
+                        return 0;
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine($"Suscces[{phone}] : Không có OTP");
+                    return 0;
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 return 1;
 
             }
@@ -432,14 +866,6 @@ namespace Auther.OTP
             }
 
         }
-
-
-
-
-
-
-
-
 
         private static object lockObjectOTP = new object();
 

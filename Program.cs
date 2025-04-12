@@ -158,7 +158,9 @@ namespace Auther.OTP
         {
             while (listData.TryTake(out string? data))
             {
-                string phone = data.Trim();
+                string email = data.Split('|')[0];
+                string password = data.Split('|')[1];
+                string phone = data.Split('|')[2];
                 string proxy = listProxy[random.Next(0, listProxy.Length)];
                 string useragain = listuseragain[random.Next(0, listuseragain.Length)];
                 WebProxy? webProxy = null;
@@ -178,7 +180,7 @@ namespace Auther.OTP
 
                 LoginAuther loginAuther = new LoginAuther(useragain) { UrlGetOTP = UrlGetOTp, webProxy = webProxy };
 
-                var Logins1 = await loginAuther.LoginAsysc(phone, useragain);
+                var Logins1 = await loginAuther.LoginAsysc(email, password, phone, useragain);
             }
         }
         private static object lockObjectLoginFail = new object();
