@@ -1,1 +1,1 @@
-﻿http://otp.vocfor.site/get_otp?Brand=Microsoft&Token=c3580a8681a9bfa8663ae7c16b6def&Isdn=
+﻿http://otp.vocfor.site/get_otp?Brand=microsoft&Token=4e4145ed4e30312562fab26c087e9b&Isdn=

@@ -201,10 +201,25 @@ namespace Auther.OTP
                     AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
                 });
                 _client.Timeout = TimeSpan.FromSeconds(15);
+                //Import
+                string? ApiCanaryEntraRedirect = string.Empty;
+                string? flowTokenEntraRedirect = string.Empty;
+                string? urlloginEntraRedirect = string.Empty;
+                string? clientrequestidEntraRedirect = string.Empty;
+                string? uaidEntraRedirect = string.Empty;
+                string? urlGetCredentialTypeEntraRedirect = string.Empty;
+                string? contentEntraRedirect = string.Empty;
+                string? canaryEntraRedirect = string.Empty;
+                string? hpgrequestidloadpageEntraRedirect = string.Empty;
+                string? hpgrequestidloadpage = string.Empty;
+                string? contentsentpasss0 = string.Empty;
+                string? UrlSentPhone = string.Empty;
+                string? sCtxSentPhone = string.Empty;
+                string? flowTokenSentPhone = string.Empty;
                 // Script
                 ////////////////////////////////////////////////////////////////////////////////////
                 // Check ip
-
+                #region checkip()
                 string Urlcheckip = "https://ifconfig.co/ip";
                 try
                 {
@@ -221,12 +236,13 @@ namespace Auther.OTP
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Warning[{phone}]: {ex.Message}");
+                    Console.WriteLine($"Warning[{phone}]: CheckIP Fail ({ex.Message})");
                     return 0;
                 }
-                //Console.WriteLine($"Suscces[{phone}] : {useragain}");
+                #endregion
                 ///////////////////////////////////////////////////////////////////////////////////////////////
-                //Truy cập vào urlRedirect
+                //Truy cập vào Microsoft Entra
+                #region GotoMSEntra()
                 Console.WriteLine($"Suscces[{phone}] : Go To Microsoft Entra");
                 string UrlEntra = "https://entra.microsoft.com/signin/index";
                 string? urlRedirect = string.Empty;
@@ -238,13 +254,13 @@ namespace Auther.OTP
                     contentGotoUrlEntra = await responseGotoUrlEntra.Content.ReadAsStringAsync();
                     if (!responseGotoUrlEntra.IsSuccessStatusCode)
                     {
-                        Console.WriteLine($"Warning[{phone}] : {responseGotoUrlEntra.StatusCode}");
+                        Console.WriteLine($"Warning[{phone}] : Request Go to MS Entra Fail ({responseGotoUrlEntra.StatusCode})");
                         return 0;
                     }
                     urlRedirect = Regex.Match(contentGotoUrlEntra, @"https:\/\/login\.microsoftonline\.com[^\s""]+").Groups[0].Value;
                     if (string.IsNullOrEmpty(urlRedirect))
                     {
-                        Console.WriteLine($"Warning[{phone}] : Không tìm thấy Url ReDirect");
+                        Console.WriteLine($"Warning[{phone}] : Không tìm thấy Url MSEnTra ReDirect");
                         return 0;
                     }
                 }
@@ -253,34 +269,28 @@ namespace Auther.OTP
                     Console.WriteLine($"Warning[{phone}] : Go to Microsoft Entra Fail ({ex.Message})");
                     return 0;
                 }
-                Console.WriteLine($"Suscces[{phone}] : Go to Url Redirect");
-                // Truy cập Microsoft Entra
-                string? ApiCanary = string.Empty;
-                string? flowToken = string.Empty;
-                string? urllogin = string.Empty;
-                string? clientrequestid = string.Empty;
-                string? uaid = string.Empty;
-                string? urlGetCredentialType = string.Empty;
-                string? contentUrlReDirect = string.Empty;
-                string? canaryentra = string.Empty;
-                string? hpgrequestidloadpage = string.Empty;
+                #endregion
+                ///////////////////////////////////////////////////////////////////////////////////////////////
+                // Truy cập Microsoft Entra Redirect
+                #region GotoUrlEntraRedirect()
+                Console.WriteLine($"Suscces[{phone}] : Go to Url Microsoft Entra Redirect");
                 try
                 {
                     var messageUrlReDirect = new HttpRequestMessage(HttpMethod.Get, urlRedirect);
                     var responseUrlReDirect = await _client.SendAsync(messageUrlReDirect);
-                    contentUrlReDirect = await responseUrlReDirect.Content.ReadAsStringAsync();
+                    contentEntraRedirect = await responseUrlReDirect.Content.ReadAsStringAsync();
                     if (responseUrlReDirect.Headers.TryGetValues("x-ms-request-id", out var values))
                     {
-                        hpgrequestidloadpage = values.FirstOrDefault();
+                        hpgrequestidloadpageEntraRedirect = values.FirstOrDefault();
                     }
-                    ApiCanary = Regex.Match(contentUrlReDirect, @"""apiCanary"":""([^""]+)""").Groups[1].Value;
-                    canaryentra = Regex.Match(contentUrlReDirect, @"""canary"":""([^""]+)""").Groups[1].Value;
-                    flowToken = Regex.Match(contentUrlReDirect, @"""sFT"":""([^""]+)""").Groups[1].Value;
-                    urllogin = Regex.Match(contentUrlReDirect, @"\?ctx=([a-zA-Z0-9_-]+)").Groups[1].Value;
-                    clientrequestid = Regex.Match(contentUrlReDirect, @"client-request-id=([^\\]+)").Groups[1].Value;
-                    uaid = Regex.Match(contentUrlReDirect, @"uaid=([^\\]+)").Groups[1].Value;
-                    urlGetCredentialType = "https://login.microsoftonline.com/common/GetCredentialType?mkt=en-US";
-                    if (string.IsNullOrEmpty(flowToken) || string.IsNullOrEmpty(ApiCanary) || string.IsNullOrEmpty(urllogin) || string.IsNullOrEmpty(clientrequestid) || string.IsNullOrEmpty(uaid))
+                    ApiCanaryEntraRedirect = Regex.Match(contentEntraRedirect, @"""apiCanary"":""([^""]+)""").Groups[1].Value;
+                    canaryEntraRedirect = Regex.Match(contentEntraRedirect, @"""canary"":""([^""]+)""").Groups[1].Value;
+                    flowTokenEntraRedirect = Regex.Match(contentEntraRedirect, @"""sFT"":""([^""]+)""").Groups[1].Value;
+                    urlloginEntraRedirect = Regex.Match(contentEntraRedirect, @"\?ctx=([a-zA-Z0-9_-]+)").Groups[1].Value;
+                    clientrequestidEntraRedirect = Regex.Match(contentEntraRedirect, @"client-request-id=([^\\]+)").Groups[1].Value;
+                    uaidEntraRedirect = Regex.Match(contentEntraRedirect, @"uaid=([^\\]+)").Groups[1].Value;
+                    urlGetCredentialTypeEntraRedirect = "https://login.microsoftonline.com/common/GetCredentialType?mkt=en-US";
+                    if (string.IsNullOrEmpty(flowTokenEntraRedirect) || string.IsNullOrEmpty(ApiCanaryEntraRedirect) || string.IsNullOrEmpty(urlloginEntraRedirect) || string.IsNullOrEmpty(clientrequestidEntraRedirect) || string.IsNullOrEmpty(uaidEntraRedirect))
                     {
                         Console.WriteLine($"Warning[{phone}] : No Found Data Login Phone");
                         return 0;
@@ -288,36 +298,41 @@ namespace Auther.OTP
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Warning[{phone}] : GO to Url Redirect Fail ({ex.Message})");
+                    Console.WriteLine($"Warning[{phone}] : GO to Url Microsoft Entra Redirect Fail ({ex.Message})");
                     return 0;
                 }
-
+                #endregion
+                ///////////////////////////////////////////////////////////////////////////////////////////////
                 // get otp cũ
-                string? otpold = string.Empty;
+                #region GETOTPOLD1()
+                string? otpold1 = string.Empty;
                 try
                 {
-                    otpold = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
-                    if (!string.IsNullOrEmpty(otpold))
+                    otpold1 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
+                    if (!string.IsNullOrEmpty(otpold1))
                     {
-                        Console.WriteLine($"Suscces[{phone}] : otpold {otpold}");
+                        Console.WriteLine($"Suscces[{phone}] : otpold1 ({otpold1})");
                     }
                     else
                     {
-                        Console.WriteLine($"Suscces[{phone}] : NO OTPOLD");
+                        Console.WriteLine($"Suscces[{phone}] : NO OTPOLD 1");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Warning[{phone}] : {ex.Message}");
+                    Console.WriteLine($"Warning[{phone}] : GET OTP OLD1 Fail ({ex.Message})");
                     return 0;
                 }
-                // Giửi yêu cầu đăng nhập phone
+                #endregion
+                ///////////////////////////////////////////////////////////////////////////////////////////////
+                // post data sent phone login
+                #region LoginPhone()
                 var loginRequest = new LoginRequest
                     {
                         CheckPhones = true,
                         Country = "VN",
                         FederationFlags = 0,
-                        FlowToken = flowToken,
+                        FlowToken = flowTokenEntraRedirect,
                         ForceOtcLogin = false,
                         IsCookieBannerShown = false,
                         IsExternalFederationDisallowed = false,
@@ -326,20 +341,19 @@ namespace Auther.OTP
                         IsRemoteConnectSupported = false,
                         IsRemoteNgcSupported = true,
                         IsSignup = false,
-                        OriginalRequest = urllogin,
+                        OriginalRequest = urlloginEntraRedirect,
                         Username = phone
                     };
                 var jsonBody = JsonConvert.SerializeObject(loginRequest);
-                // post data Login Phone
-                var messageLoginPhone = new HttpRequestMessage(HttpMethod.Post, urlGetCredentialType);
+                var messageLoginPhone = new HttpRequestMessage(HttpMethod.Post, urlGetCredentialTypeEntraRedirect);
                 messageLoginPhone.Content = new StringContent(jsonBody, MediaTypeHeaderValue.Parse("application/json"));
-                messageLoginPhone.Headers.Add("Canary", ApiCanary);
+                messageLoginPhone.Headers.Add("Canary", ApiCanaryEntraRedirect);
                 messageLoginPhone.Headers.Add("Hpgid", "1104");
                 messageLoginPhone.Headers.Add("Hpgact", "1800");
                 messageLoginPhone.Headers.Add("origin", "https://login.microsoftonline.com");
                 messageLoginPhone.Headers.Add("priority", "u=1, i");
                 messageLoginPhone.Headers.Add("referer", urlRedirect);
-                messageLoginPhone.Headers.Add("client-request-id", clientrequestid);
+                messageLoginPhone.Headers.Add("client-request-id", clientrequestidEntraRedirect);
                 string? contentLoginPhone = string.Empty;
                 try
                 {
@@ -348,7 +362,7 @@ namespace Auther.OTP
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Warning[{phone}] :Sent Phone Fail {ex.Message}");
+                    Console.WriteLine($"Warning[{phone}] :Sent Phone 1 Fail {ex.Message}");
                     return 0;
                 }
                 JObject jsonObject = JObject.Parse(contentLoginPhone);
@@ -357,7 +371,7 @@ namespace Auther.OTP
                 string apiCanary1 = Regex.Match(contentLoginPhone, @"""apiCanary"":""([^""]+)""").Groups[1].Value;
                 if (string.IsNullOrEmpty(flowToken1))
                 {
-                    Console.WriteLine($"Warning[{phone}] : Sent OTP Fail");
+                    Console.WriteLine($"Warning[{phone}] : Sent OTP 1 Fail");
                     lock (lockObjectOTP)
                     {
                         File.AppendAllText($"input\\SentOTPFail.txt", $"{phone}" + Environment.NewLine);
@@ -366,7 +380,7 @@ namespace Auther.OTP
                 }
                 else
                 {
-                    Console.WriteLine($"Suscces[{phone}] : Sent OTP Suscces");
+                    Console.WriteLine($"Suscces[{phone}] : Sent OTP 1 Suscces");
                     var ifExistsResult = (int)jsonObject["IfExistsResult"];
                     if (ifExistsResult == 6)
                     {
@@ -378,7 +392,7 @@ namespace Auther.OTP
                             {
                                 Channel = "SMS",
                                 FlowToken = flowToken1,
-                                OriginalRequest = urllogin,
+                                OriginalRequest = urlloginEntraRedirect,
                             };
                             var jsonBodySchool = JsonConvert.SerializeObject(school);
                             var messageSchool = new HttpRequestMessage(HttpMethod.Post, UrlGetOneTimeCode);
@@ -406,52 +420,61 @@ namespace Auther.OTP
                         flowTokenSentOTP=flowToken1;
                     }    
 
-                }             
-                string? otp = string.Empty;
-                int count = 10;
+                }
+                #endregion
+                ///////////////////////////////////////////////////////////////////////////////////////////////
+                // get otp 1
+                #region GETOTP1()
+                string? otp1 = string.Empty;
+                int count1 = 10;
                 Console.WriteLine($"Suscces[{phone}] : GetOTP");
-                while (count > 0)
+                while (count1 > 0)
                 {
                     try
                     {
-                        otp = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
-                        if (!string.IsNullOrEmpty(otp) && otp != otpold )
+                        otp1 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
+                        if (!string.IsNullOrEmpty(otp1) && otp1 != otpold1 )
                         {
                             //Console.WriteLine($"Suscces[{phone}] : {otp}");
                             string dirPath = $"output\\{DateTime.Now:dd_MM_yyyy}";
                             Directory.CreateDirectory(dirPath); // Tạo nếu chưa có
                             lock (lockObjectOTP)
                             {
-                                File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\phoneUsed.txt", $"{phone}" + Environment.NewLine);
-                                File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\otp.txt", $"{phone}|{otp}" + Environment.NewLine);
+                                File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\phoneUsed.txt", $"{email}|{password}|{phone}" + Environment.NewLine);
+                                File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\otp.txt", $"{phone}|{otp1}" + Environment.NewLine);
                             }
                             break;
                         }
 
-                        count--;
+                        count1--;
                         await Task.Delay(3000);
 
                     }
                     catch(Exception ex)
                     {
-                        Console.WriteLine($"Warning[{phone}] : {ex.Message}");
+                        Console.WriteLine($"Warning[{phone}] : GET OTP1 Fail ({ex.Message})");
                         return 0;
                     }
                     
                 }
+                #endregion
+                ///////////////////////////////////////////////////////////////////////////////////////////////
+                // Post OTP 1
+                #region PostOTP1()
                 string? contentSentOTP = string.Empty;
                 string? flowTokenLoadpage = string.Empty;
                 string? ctxloadpage = string.Empty;
-                if (count >= 0 && !string.IsNullOrEmpty(otp) && otp != otpold)
+                
+                if (count1 >= 0 && !string.IsNullOrEmpty(otp1) && otp1 != otpold1)
                 {
                     ///post otp
-                    Console.WriteLine($"Suscces[{phone}] : {otp}");
+                    Console.WriteLine($"Suscces[{phone}] : {otp1}");
                     var UrlPostOTP = "https://login.microsoftonline.com/common/PIA/EndAuth";
                     var postOtp = new PostOtp
                     {
-                        AdditionalAuthData = otp,
+                        AdditionalAuthData = otp1,
                         FlowToken = flowTokenSentOTP,
-                        Ctx = urllogin,
+                        Ctx = urlloginEntraRedirect,
                     };
                    
                     var jsonBody1 = JsonConvert.SerializeObject(postOtp);
@@ -468,7 +491,7 @@ namespace Auther.OTP
                     bool success = jsonSentOTP["SasParams"]?["Success"]?.Value<bool>() ?? false;
                     if (success)
                     {
-                        Console.WriteLine($"Suscces[{phone}] : ______________________________Confirm OTP1 Suscces {otp}");
+                        Console.WriteLine($"Suscces[{phone}] : ______________________________Confirm OTP1 Suscces {otp1}");
                         flowTokenLoadpage = jsonSentOTP["FlowToken"]?.ToString();
                         ctxloadpage = jsonSentOTP["Ctx"]?.ToString();
                         goto loadpage;
@@ -481,21 +504,34 @@ namespace Auther.OTP
                 }
                 else
                 {
-                    Console.WriteLine($"Suscces[{phone}] : Không có OTP");
-                    File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\Nootp.txt", $"{phone}|{otp}" + Environment.NewLine);
+                    Console.WriteLine($"Suscces[{phone}] : Không có OTP 1");
+                    File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\Nootp.txt", $"{phone}|{otp1}" + Environment.NewLine);
                     return 0;
                 }
+            #endregion
+
 
             loadpage:
-                
-
-                Console.WriteLine($"Suscces[{phone}] : Bắt đầu load page {otp}");
+                ///////////////////////////////////////////////////////////////////////////////////////////////
+                // Loadpage
+                #region LoadPage()
+                Console.WriteLine($"Suscces[{phone}] : Bắt đầu load page {otp1}");
                 string UrlLoadPage = "https://login.microsoftonline.com/common/login";
                 string? contentloadpages0 = string.Empty;
                 try
                 {
                     var messageloadpage = new HttpRequestMessage(HttpMethod.Post, UrlLoadPage);
-                    messageloadpage.Content = new StringContent($"i13=0&login={phone}&loginfmt=%2B{phone.Substring(0, 2)}+{phone.Substring(2, 3)}+{phone.Substring(5, 3)}+{phone.Substring(8, 3)}&SentProofID={phone}&purpose=PublicIdentifierAuth&piotc={otp}&ps=3&psRNGCDefaultType=&psRNGCEntropy=&psRNGCSLK=&canary={canaryentra}&ctx={ctxloadpage}&hpgrequestid={hpgrequestidloadpage}&flowToken={flowTokenLoadpage}&PPSX=&NewUser=1&FoundMSAs=&fspost=0&i21=0&CookieDisclosure=0&IsFidoSupported=1&isSignupPost=0&DfpArtifact=&i19=", MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded"));
+                    string firtphone = phone.Substring(0, 2);
+                    string firtphone1 = string.Empty;
+                    if (firtphone == "84")
+                    {
+                        firtphone1 = $"i13=0&login={phone}&loginfmt=%2B{phone.Substring(0, 2)}+{phone.Substring(2, 3)}+{phone.Substring(5, 3)}+{phone.Substring(8, 3)}&SentProofID={phone}&purpose=PublicIdentifierAuth&piotc={otp1}&ps=3&psRNGCDefaultType=&psRNGCEntropy=&psRNGCSLK=&canary={canaryEntraRedirect}&ctx={ctxloadpage}&hpgrequestid={hpgrequestidloadpage}&flowToken={flowTokenLoadpage}&PPSX=&NewUser=1&FoundMSAs=&fspost=0&i21=0&CookieDisclosure=0&IsFidoSupported=1&isSignupPost=0&DfpArtifact=&i19=";
+                    }
+                    else
+                    {
+                        firtphone1 = $"i13=0&login={phone}&loginfmt=%2B{phone.Substring(0, 3)}+{phone.Substring(3, 2)}+{phone.Substring(5, 3)}+{phone.Substring(8, 4)}&type=24&LoginOptions=3&SentProofID={phone}&purpose=PublicIdentifierAuth&piotc={otp1}&ps=3&psRNGCDefaultType=&psRNGCEntropy=&psRNGCSLK=&canary={canaryEntraRedirect}&ctx={ctxloadpage}&hpgrequestid={hpgrequestidloadpage}&flowToken={flowTokenLoadpage}&PPSX=&NewUser=1&FoundMSAs=&fspost=0&i21=0&CookieDisclosure=0&IsFidoSupported=1&isSignupPost=0&DfpArtifact=&i19=";
+                    }
+                    messageloadpage.Content = new StringContent(firtphone1, MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded"));
                     var responseloadpage = await _client.SendAsync(messageloadpage);
                     if (responseloadpage.Headers.TryGetValues("x-ms-request-id", out var values1))
                     {
@@ -514,12 +550,28 @@ namespace Auther.OTP
                     Console.WriteLine($"Warning[{phone}] :Load Page Suscces Go to Kmsi");
                     goto Kmsi;
                 }
+                if(PageCases0== "ConvergedChangePassword")
+                {
+                    Console.WriteLine($"Warning[{phone}] :Load Page Suscces Go to Change Password");
+                    //goto ChangePass;
+                    return 1;
+                }
+                else
+                {
+                    Console.WriteLine($"Warning[{phone}] :Không tìm thấy kịch bản");
+                    lock (lockObjectOTP)
+                    {
+                        File.AppendAllText($"input\\Nofind.txt", $"{email}|{password}|{phone}" + Environment.NewLine);
+                    }
 
-
-
-
+                }
+            #endregion
+            ConvergedSignIn:
 
             Kmsi:
+                ///////////////////////////////////////////////////////////////////////////////////////////////
+                // KMSI
+                #region KMSI1()
                 string sCtxLoadPages0 = Regex.Match(contentloadpages0, @"""sCtx"":""([^""]+)""").Groups[1].Value;
                 string flowTokenLoadPages0 = Regex.Match(contentloadpages0, @"""sFT"":""([^""]+)""").Groups[1].Value;
                 string canaryLoadPages0 = Regex.Match(contentloadpages0, @"""canary"":""([^""]+)""").Groups[1].Value;
@@ -542,6 +594,8 @@ namespace Auther.OTP
                     Console.WriteLine($"Warning[{phone}] : Go to Kmsi Fail ({ex.Message})");
                     return 0;
                 }
+                #endregion
+                #region KMSIINDEX()
                 string? codeKmsi = Regex.Match(contentKmsi, @"<input[^>]*name\s*=\s*""code""[^>]*value\s*=\s*""([^""]+)""").Groups[1].Value;
                 string? id_tokenKmsi = Regex.Match(contentKmsi, @"<input[^>]*name\s*=\s*""id_token""[^>]*value\s*=\s*""([^""]+)""").Groups[1].Value;
                 string? stateKmsi = Regex.Match(contentKmsi, @"<input[^>]*name\s*=\s*""state""[^>]*value\s*=\s*""([^""]+)""").Groups[1].Value;
@@ -658,10 +712,7 @@ namespace Auther.OTP
                     DfpArtifact = null,
                     i19 = null,
                 };
-                string? contentsentpasss0 = string.Empty;
-                string? UrlSentPhone = string.Empty;
-                string? sCtxSentPhone = string.Empty;
-                string? flowTokenSentPhone = string.Empty;
+              
                 var formDataSentPass = ToFormDictionary(BodySentPass);
                 messagesentpasss0.Content = new FormUrlEncodedContent(formDataSentPass);
                 var responsesentpasss0 = await _client.SendAsync(messagesentpasss0);
@@ -679,10 +730,25 @@ namespace Auther.OTP
                     else
                     {
                         Console.WriteLine($"Warning[{phone}] : No Found Url Sent Phone");
+                        return 0;
                     }
                 }
+                else
+                {
+                    Console.WriteLine($"Warning[{phone}] : Không tìm thấy kịch bản 2");
+                    lock (lockObjectOTP)
+                    {
+                        File.AppendAllText($"input\\Nofind.txt", $"{email}|{password}|{phone}" + Environment.NewLine);
+                    }
+                }
+            #endregion
+
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////
+            goto OneWaySMS;
 
             OneWaySMS:
+                #region OneWaySMS2()
                 UrlSentPhone = "https://login.microsoftonline.com/common/SAS/BeginAuth";
 
                 SentPhone sentPhone = new SentPhone
@@ -700,7 +766,7 @@ namespace Auther.OTP
                 messageSentPhone.Headers.Add("origin", "https://login.microsoftonline.com");
                 messageSentPhone.Headers.Add("priority", "u=1, i");
                 messageSentPhone.Headers.Add("Hpgrequestid", hpgrequestidSentPhone);
-                messageSentPhone.Headers.Add("client-request-id", clientrequestid);
+                messageSentPhone.Headers.Add("client-request-id", clientrequestidEntraRedirect);
                 messageSentPhone.Content = new StringContent(jsonBodyPhone, MediaTypeHeaderValue.Parse("application/json"));
                 string? sessionIdSentPhone = string.Empty;
                 string? ctxSentPhone = string.Empty;
@@ -712,7 +778,7 @@ namespace Auther.OTP
                     bool isSuccess = jsonSentPhone["Success"]?.ToObject<bool>() == true;
                     if (isSuccess)
                     {
-                        Console.WriteLine($"Suscces[{phone}] : Sent OTP Suscces");
+                        Console.WriteLine($"Suscces[{phone}] : Sent OTP2 Suscces");
                     }
                     else
                     {
@@ -720,7 +786,7 @@ namespace Auther.OTP
                         {
                             File.AppendAllText($"input\\SentOTPFail.txt", $"{email}|{password}|{phone}" + Environment.NewLine);
                         }
-                        Console.WriteLine($"Suscces[{phone}] : Sent OTP Fail 0");
+                        Console.WriteLine($"Suscces[{phone}] : Sent OTP2 Fail 0");
                         return 0;
                     }
                     flowTokenSentPhone = jsonSentPhone["FlowToken"]?.ToString();
@@ -733,36 +799,33 @@ namespace Auther.OTP
                     return 0;
                 }
 
-                string? otpold1 = string.Empty;
+                string? otpold2 = string.Empty;
                 try
                 {
-                    otpold1 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
-                    if (!string.IsNullOrEmpty(otpold))
+                    otpold2 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
+                    if (!string.IsNullOrEmpty(otpold2))
                     {
-                        Console.WriteLine($"Suscces[{phone}] : otpold1 {otpold1}");
+                        Console.WriteLine($"Suscces[{phone}] : otpold2 {otpold2}");
                     }
                     else
                     {
-                        Console.WriteLine($"Suscces[{phone}] : NO OTPOLD");
+                        Console.WriteLine($"Suscces[{phone}] : NO OTPOLD2");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Warning[{phone}] : {ex.Message}");
+                    Console.WriteLine($"Warning[{phone}] : GET OTP2 Fail ({ex.Message})");
                     return 0;
                 }
-
-
-
-                string? otp1 = string.Empty;
-                int count1 = 10;
+                string? otp2 = string.Empty;
+                int count2 = 10;
                 Console.WriteLine($"Suscces[{phone}] : GetOTP");
-                while (count1 > 0)
+                while (count2 > 0)
                 {
                     try
                     {
-                        otp1 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
-                        if (!string.IsNullOrEmpty(otp1) && otp1 != otpold1)
+                        otp2 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
+                        if (!string.IsNullOrEmpty(otp2) && otp2 != otpold2)
                         {
                             //Console.WriteLine($"Suscces[{phone}] : {otp}");
                             string dirPath = $"output\\{DateTime.Now:dd_MM_yyyy}";
@@ -770,12 +833,12 @@ namespace Auther.OTP
                             lock (lockObjectOTP)
                             {
                                 File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\phoneUsed.txt", $"{phone}" + Environment.NewLine);
-                                File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\otp.txt", $"{phone}|{otp}" + Environment.NewLine);
+                                File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\otp.txt", $"{phone}|{otp2}" + Environment.NewLine);
                             }
                             break;
                         }
 
-                        count--;
+                        count2--;
                         await Task.Delay(3000);
 
                     }
@@ -787,10 +850,10 @@ namespace Auther.OTP
 
                 }
 
-                if (count >= 0 && !string.IsNullOrEmpty(otp1) && otp1 != otpold1)
+                if (count2 >= 0 && !string.IsNullOrEmpty(otp2) && otp2 != otpold2)
                 {
                     // post otp
-                    Console.WriteLine($"Suscces[{phone}] : {otp1}");
+                    Console.WriteLine($"Suscces[{phone}] : {otp2}");
                     var UrlSentOTP = "https://login.microsoftonline.com/common/SAS/EndAuth";
                     var sentOTP = new SentOTP
                     {
@@ -799,7 +862,7 @@ namespace Auther.OTP
                         FlowToken = flowTokenSentPhone,
                         Ctx = ctxSentPhone,
                         AuthMethodId = "OneWaySMS",
-                        AdditionalAuthData = otp1,
+                        AdditionalAuthData = otp2,
                         PollCount = 1,
                     };
                     var jsonBodySentOTP = JsonConvert.SerializeObject(sentOTP);
@@ -807,7 +870,7 @@ namespace Auther.OTP
                     {
                         var messageSentOTP = new HttpRequestMessage(HttpMethod.Post, UrlSentOTP);
                         messageSentOTP.Content = new StringContent(jsonBodySentOTP, MediaTypeHeaderValue.Parse("application/json"));
-                        messageSentOTP.Headers.Add("client-request-id", clientrequestid);
+                        messageSentOTP.Headers.Add("client-request-id", clientrequestidEntraRedirect);
                         //messageSentOTP.Headers.Add("canary", apiCanaryLoginPass);
                         messageSentOTP.Headers.Add("Hpgact", "2001");
                         messageSentOTP.Headers.Add("Hpgid", "1114");
@@ -817,18 +880,18 @@ namespace Auther.OTP
                         bool isSuccess1 = jsonSentOTP["Success"]?.ToObject<bool>() == true;
                         if (isSuccess1)
                         {
-                            Console.WriteLine($"Suscces[{phone}] : ______________________________Confirm OTP2 Suscces {otp1}");
+                            Console.WriteLine($"Suscces[{phone}] : ______________________________Confirm OTP2 Suscces {otp2}");
                         }
                         else
                         {
-                            Console.WriteLine($"Suscces[{phone}] : ______________________________Confirm OTP2 Fail {otp1}");
+                            Console.WriteLine($"Suscces[{phone}] : ______________________________Confirm OTP2 Fail {otp2}");
                             return 0;
                         }
                         return 1;
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine($"Warning[{phone}] : comfirm OTP fail({ex.Message})");
+                        Console.WriteLine($"Warning[{phone}] : comfirm OTP2 fail({ex.Message})");
                         return 0;
                     }
 
@@ -841,19 +904,7 @@ namespace Auther.OTP
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+                #endregion
 
                 return 1;
 
