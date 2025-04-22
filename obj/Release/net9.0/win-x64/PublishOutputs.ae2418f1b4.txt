@@ -1,0 +1,12 @@
+C:\Users\Quang Huy\Desktop\Login Vfarmotp\Request_Login_Phone_v1.2.4.pdb
+C:\Users\Quang Huy\Desktop\Login Vfarmotp\input\Data.txt
+C:\Users\Quang Huy\Desktop\Login Vfarmotp\input\EnableSleep.txt
+C:\Users\Quang Huy\Desktop\Login Vfarmotp\input\listProxy.txt
+C:\Users\Quang Huy\Desktop\Login Vfarmotp\input\Nofind.txt
+C:\Users\Quang Huy\Desktop\Login Vfarmotp\input\Nootp.txt
+C:\Users\Quang Huy\Desktop\Login Vfarmotp\input\SentOTPFail.txt
+C:\Users\Quang Huy\Desktop\Login Vfarmotp\input\Thread.txt
+C:\Users\Quang Huy\Desktop\Login Vfarmotp\input\UrlGetOtp.txt
+C:\Users\Quang Huy\Desktop\Login Vfarmotp\input\UrlRenewOtp.txt
+C:\Users\Quang Huy\Desktop\Login Vfarmotp\input\UserAgain.txt
+C:\Users\Quang Huy\Desktop\Login Vfarmotp\Request_Login_Phone_v1.2.4.exe

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.IO;
 using System.Net;
 using System.Text;
 
@@ -13,6 +14,8 @@ namespace Auther.OTP
         private static string[] listProxy = [];
 
         private static string UrlGetOTp { get; set; }
+
+        private static string UrlRenewOTP { get; set; }
 
         private static string TypeProxy { get; set; }
 
@@ -102,6 +105,8 @@ namespace Auther.OTP
 
                 UrlGetOTp = await File.ReadAllTextAsync("input\\UrlGetOtp.txt");
 
+                UrlRenewOTP = await File.ReadAllTextAsync("input\\UrlRenewOtp.txt");
+
                 listData = new ConcurrentBag<string>(await File.ReadAllLinesAsync("input\\data.txt"));
 
                 int Thread = int.Parse(await File.ReadAllTextAsync("input\\Thread.txt"));
@@ -158,9 +163,24 @@ namespace Auther.OTP
         {
             while (listData.TryTake(out string? data))
             {
-                string email = data.Split('|')[0];
-                string password = data.Split('|')[1];
-                string phone = data.Split('|')[2];
+                string[] parts = data.Split('|');
+                string? email = string.Empty;
+                string? password = string.Empty;
+                string? phone = string.Empty;
+                if (parts.Length == 3)
+                {
+                    email = data.Split('|')[0];
+                    password = data.Split('|')[1];
+                    phone = data.Split('|')[2];
+                   
+                }
+                else
+                {
+                    phone = data;
+                    email = "no";
+                    password = "no";
+                }    
+
                 string proxy = listProxy[random.Next(0, listProxy.Length)];
                 string useragain = listuseragain[random.Next(0, listuseragain.Length)];
                 WebProxy? webProxy = null;
@@ -178,7 +198,7 @@ namespace Auther.OTP
                     Console.WriteLine("Proxy không hợp lệ");
                 }
 
-                LoginAuther loginAuther = new LoginAuther(useragain) { UrlGetOTP = UrlGetOTp, webProxy = webProxy };
+                LoginAuther loginAuther = new LoginAuther(useragain) { UrlGetOTP = UrlGetOTp, webProxy = webProxy, UrlRenewOTP= UrlRenewOTP };
 
                 var Logins1 = await loginAuther.LoginAsysc(email, password, phone, useragain);
             }

@@ -61,9 +61,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\Request_Login_Phone_v1.2.3.csproj",
-      "projectName": "Request_Login_Phone_v1.2.3",
-      "projectPath": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\Request_Login_Phone_v1.2.3.csproj",
+      "projectUniqueName": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\Request_Login_Phone_v1.2.4.csproj",
+      "projectName": "Request_Login_Phone_v1.2.4",
+      "projectPath": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\Request_Login_Phone_v1.2.4.csproj",
       "packagesPath": "C:\\Users\\Quang Huy\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\obj\\",
       "projectStyle": "PackageReference",

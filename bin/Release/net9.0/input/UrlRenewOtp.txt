@@ -1,0 +1,1 @@
+﻿http://vfarmotp.com/api/get-otp?token=d323557d168eb2cf5de583b49dc627ad&action=renew&id=99&phone=

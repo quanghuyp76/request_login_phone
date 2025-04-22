@@ -24,3 +24,4 @@ C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Release\net9.0\refin
 C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Release\net9.0\Request_Login_Phone_v1.2.3.pdb
 C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Release\net9.0\Request_Login_Phone_v1.2.3.genruntimeconfig.cache
 C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Release\net9.0\ref\Request_Login_Phone_v1.2.3.dll
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Release\net9.0\input\Nofind.txt

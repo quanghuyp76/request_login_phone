@@ -18,6 +18,8 @@ namespace Auther.OTP
 
         public string useragain { get; set; }
         public required string UrlGetOTP { get; set; }
+
+        public required string UrlRenewOTP { get; set; }
         public class SentPhone
         {
             public string AuthMethodId { get; set; }
@@ -308,7 +310,16 @@ namespace Auther.OTP
                 string? otpold1 = string.Empty;
                 try
                 {
-                    otpold1 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
+                    VFarmOTP.GetOTPVFarmRenew(UrlRenewOTP, phone);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] : Giửi Renew Fail ({ex.Message})");
+                    return 0;
+                }
+                try
+                {
+                    otpold1 = await VFarmOTP.GetOTPVFarmm(UrlGetOTP, phone);
                     if (!string.IsNullOrEmpty(otpold1))
                     {
                         Console.WriteLine($"Suscces[{phone}] : otpold1 ({otpold1})");
@@ -428,11 +439,20 @@ namespace Auther.OTP
                 string? otp1 = string.Empty;
                 int count1 = 10;
                 Console.WriteLine($"Suscces[{phone}] : GetOTP");
+                try
+                {
+                    VFarmOTP.GetOTPVFarmRenew(UrlRenewOTP,phone);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] : Giửi Renew Fail ({ex.Message})");
+                    return 0;
+                }
                 while (count1 > 0)
                 {
                     try
                     {
-                        otp1 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
+                        otp1 = await VFarmOTP.GetOTPVFarmm(UrlGetOTP, phone);
                         if (!string.IsNullOrEmpty(otp1) && otp1 != otpold1 )
                         {
                             //Console.WriteLine($"Suscces[{phone}] : {otp}");
@@ -498,9 +518,10 @@ namespace Auther.OTP
                     }
                     else
                     {
-                        Console.WriteLine($"Warning[{phone}] : ______________________________Confirm OTP False");
+                        Console.WriteLine($"Warning[{phone}] : ______________________________Confirm OTP1 False");
+                        return 0;
                     }
-                    return 1;
+                    
                 }
                 else
                 {
@@ -548,7 +569,8 @@ namespace Auther.OTP
                 if(PageCases0== "KmsiInterrupt")
                 {
                     Console.WriteLine($"Warning[{phone}] :Load Page Suscces Go to Kmsi");
-                    goto Kmsi;
+                    //goto Kmsi;
+                    return 1;
                 }
                 if(PageCases0== "ConvergedChangePassword")
                 {
@@ -725,7 +747,7 @@ namespace Auther.OTP
                     {
                         sCtxSentPhone = Regex.Match(contentsentpasss0, @"""sCtx"":""([^""]+)""").Groups[1].Value;
                         flowTokenSentPhone = Regex.Match(contentsentpasss0, @"""sFT"":""([^""]+)""").Groups[1].Value;
-                        goto OneWaySMS;
+                        //goto OneWaySMS;
                     }
                     else
                     {
@@ -799,10 +821,19 @@ namespace Auther.OTP
                     return 0;
                 }
 
+                try
+                {
+                    VFarmOTP.GetOTPVFarmRenew(UrlRenewOTP,phone);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] : Giửi Renew Fail ({ex.Message})");
+                    return 0;
+                }
                 string? otpold2 = string.Empty;
                 try
                 {
-                    otpold2 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
+                    otpold2 = await VFarmOTP.GetOTPVFarmm(UrlGetOTP, phone);
                     if (!string.IsNullOrEmpty(otpold2))
                     {
                         Console.WriteLine($"Suscces[{phone}] : otpold2 {otpold2}");
@@ -820,11 +851,20 @@ namespace Auther.OTP
                 string? otp2 = string.Empty;
                 int count2 = 10;
                 Console.WriteLine($"Suscces[{phone}] : GetOTP");
+                try
+                {
+                    VFarmOTP.GetOTPVFarmRenew(UrlRenewOTP,phone);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Warning[{phone}] : Giửi Renew Fail ({ex.Message})");
+                    return 0;
+                }
                 while (count2 > 0)
                 {
                     try
                     {
-                        otp2 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
+                        otp2 = await VFarmOTP.GetOTPVFarmm(UrlGetOTP, phone);
                         if (!string.IsNullOrEmpty(otp2) && otp2 != otpold2)
                         {
                             //Console.WriteLine($"Suscces[{phone}] : {otp}");

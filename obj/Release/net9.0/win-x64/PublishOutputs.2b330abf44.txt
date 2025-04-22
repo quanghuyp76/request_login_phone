@@ -1,0 +1,11 @@
+C:\Users\Quang Huy\Desktop\New folder\Request_Login_Phone_v1.2.3.pdb
+C:\Users\Quang Huy\Desktop\New folder\input\Data.txt
+C:\Users\Quang Huy\Desktop\New folder\input\EnableSleep.txt
+C:\Users\Quang Huy\Desktop\New folder\input\listProxy.txt
+C:\Users\Quang Huy\Desktop\New folder\input\Nofind.txt
+C:\Users\Quang Huy\Desktop\New folder\input\Nootp.txt
+C:\Users\Quang Huy\Desktop\New folder\input\SentOTPFail.txt
+C:\Users\Quang Huy\Desktop\New folder\input\Thread.txt
+C:\Users\Quang Huy\Desktop\New folder\input\UrlGetOtp.txt
+C:\Users\Quang Huy\Desktop\New folder\input\UserAgain.txt
+C:\Users\Quang Huy\Desktop\New folder\Request_Login_Phone_v1.2.3.exe

@@ -21,7 +21,32 @@ namespace Auther.OTP
             return otp;
         }
 
+        public static async Task GetOTPVFarmRenew(string url, string phone)
+        {
+            var responseMessage = await Program.httpClient.GetAsync($"{url}{phone}");
+            var content = await responseMessage.Content.ReadAsStringAsync();
+
+        }
+
+
+        public static async Task<string> GetOTPVFarmm(string url, string phone)
+        {
+            var responseMessage = await Program.httpClient.GetAsync($"{url}{phone}");
+            var content = await responseMessage.Content.ReadAsStringAsync();
+            //Console.WriteLine(content);
+            string? otp = Regex.Match(content, @"\\""otp\\"":\\""(.*?)\\").Groups[1].Value;
+            string? message = Regex.Match(content, @"\\""Message\\"":\\""(.*?)\\").Groups[1].Value;
+            if (string.IsNullOrEmpty(otp) && !string.IsNullOrEmpty(message))
+            {
+                return "";
+            }
+            return otp;
+        }
+
     }
+
+   
+
     class PhoneFilter
     {
         public static void FilterPhones(string file1Path, string file2Path, int maxAllowed)
