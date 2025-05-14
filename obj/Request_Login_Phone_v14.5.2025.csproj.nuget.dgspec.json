@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Quang Huy\\Desktop\\Code C#\\Request\\request_login_phone\\Request_Login_Phone_v1.2.6.csproj": {}
+    "C:\\Users\\Quang Huy\\Desktop\\Code C#\\Request\\request_login_phone\\Request_Login_Phone_v14.5.2025.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Quang Huy\\Desktop\\Code C#\\Request\\request_login_phone\\Request_Login_Phone_v1.2.6.csproj": {
+    "C:\\Users\\Quang Huy\\Desktop\\Code C#\\Request\\request_login_phone\\Request_Login_Phone_v14.5.2025.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Quang Huy\\Desktop\\Code C#\\Request\\request_login_phone\\Request_Login_Phone_v1.2.6.csproj",
-        "projectName": "Request_Login_Phone_v1.2.6",
-        "projectPath": "C:\\Users\\Quang Huy\\Desktop\\Code C#\\Request\\request_login_phone\\Request_Login_Phone_v1.2.6.csproj",
+        "projectUniqueName": "C:\\Users\\Quang Huy\\Desktop\\Code C#\\Request\\request_login_phone\\Request_Login_Phone_v14.5.2025.csproj",
+        "projectName": "Request_Login_Phone_v14.5.2025",
+        "projectPath": "C:\\Users\\Quang Huy\\Desktop\\Code C#\\Request\\request_login_phone\\Request_Login_Phone_v14.5.2025.csproj",
         "packagesPath": "C:\\Users\\Quang Huy\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Quang Huy\\Desktop\\Code C#\\Request\\request_login_phone\\obj\\",
         "projectStyle": "PackageReference",

@@ -61,11 +61,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\TASK_VFARM\\0000_CODE\\Tool_Request\\Request_Entra_Login_Phone\\Request_Login_Phone_v1.2.6.csproj",
-      "projectName": "Request_Login_Phone_v1.2.6",
-      "projectPath": "D:\\TASK_VFARM\\0000_CODE\\Tool_Request\\Request_Entra_Login_Phone\\Request_Login_Phone_v1.2.6.csproj",
+      "projectUniqueName": "C:\\Users\\Quang Huy\\Desktop\\Code C#\\Request\\request_login_phone\\Request_Login_Phone_v14.5.2025.csproj",
+      "projectName": "Request_Login_Phone_v14.5.2025",
+      "projectPath": "C:\\Users\\Quang Huy\\Desktop\\Code C#\\Request\\request_login_phone\\Request_Login_Phone_v14.5.2025.csproj",
       "packagesPath": "C:\\Users\\Quang Huy\\.nuget\\packages\\",
-      "outputPath": "D:\\TASK_VFARM\\0000_CODE\\Tool_Request\\Request_Entra_Login_Phone\\obj\\",
+      "outputPath": "C:\\Users\\Quang Huy\\Desktop\\Code C#\\Request\\request_login_phone\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -98,7 +98,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.200"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net9.0": {
@@ -125,7 +125,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
