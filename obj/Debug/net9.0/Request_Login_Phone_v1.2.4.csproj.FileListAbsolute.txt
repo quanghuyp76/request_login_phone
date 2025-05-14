@@ -1,0 +1,56 @@
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\input\Data.txt
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\input\EnableSleep.txt
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\input\listProxy.txt
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\input\Nofind.txt
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\input\Nootp.txt
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\input\SentOTPFail.txt
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\input\Thread.txt
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\input\UrlGetOtp.txt
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\input\UrlRenewOtp.txt
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\input\UserAgain.txt
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\Request_Login_Phone_v1.2.4.exe
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\Request_Login_Phone_v1.2.4.deps.json
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\Request_Login_Phone_v1.2.4.runtimeconfig.json
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\Request_Login_Phone_v1.2.4.dll
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\Request_Login_Phone_v1.2.4.pdb
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.csproj.AssemblyReference.cache
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.AssemblyInfoInputs.cache
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.AssemblyInfo.cs
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.csproj.CoreCompileInputs.cache
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.sourcelink.json
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Debug\net9.0\Request_.C044F45A.Up2Date
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.dll
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Debug\net9.0\refint\Request_Login_Phone_v1.2.4.dll
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.pdb
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.genruntimeconfig.cache
+C:\Users\Quang Huy\Desktop\Vfarm C#\request_login_phone\obj\Debug\net9.0\ref\Request_Login_Phone_v1.2.4.dll
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\input\Data.txt
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\input\EnableSleep.txt
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\input\listProxy.txt
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\input\Nofind.txt
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\input\Nootp.txt
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\input\SentOTPFail.txt
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\input\Thread.txt
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\input\UrlGetOtp.txt
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\input\UrlRenewOtp.txt
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\input\UserAgain.txt
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\Request_Login_Phone_v1.2.4.exe
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\Request_Login_Phone_v1.2.4.deps.json
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\Request_Login_Phone_v1.2.4.runtimeconfig.json
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\Request_Login_Phone_v1.2.4.dll
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\Request_Login_Phone_v1.2.4.pdb
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\bin\Debug\net9.0\Newtonsoft.Json.dll
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.csproj.AssemblyReference.cache
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.GeneratedMSBuildEditorConfig.editorconfig
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.AssemblyInfoInputs.cache
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.AssemblyInfo.cs
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.csproj.CoreCompileInputs.cache
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.sourcelink.json
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\obj\Debug\net9.0\Request_.C044F45A.Up2Date
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.dll
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\obj\Debug\net9.0\refint\Request_Login_Phone_v1.2.4.dll
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.pdb
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\obj\Debug\net9.0\Request_Login_Phone_v1.2.4.genruntimeconfig.cache
+D:\TASK_VFARM\0000_CODE\Tool_Request\Request_Entra_Login_Phone\obj\Debug\net9.0\ref\Request_Login_Phone_v1.2.4.dll

@@ -1,0 +1,12 @@
+D:\TASK_VFARM\000_HOTMAIL_ENTRA\TOOL\Tool_Entra_LoginPhone_v1.2.6\Request_Login_Phone_v1.2.6.pdb
+D:\TASK_VFARM\000_HOTMAIL_ENTRA\TOOL\Tool_Entra_LoginPhone_v1.2.6\input\Data.txt
+D:\TASK_VFARM\000_HOTMAIL_ENTRA\TOOL\Tool_Entra_LoginPhone_v1.2.6\input\EnableSleep.txt
+D:\TASK_VFARM\000_HOTMAIL_ENTRA\TOOL\Tool_Entra_LoginPhone_v1.2.6\input\listProxy.txt
+D:\TASK_VFARM\000_HOTMAIL_ENTRA\TOOL\Tool_Entra_LoginPhone_v1.2.6\input\Nofind.txt
+D:\TASK_VFARM\000_HOTMAIL_ENTRA\TOOL\Tool_Entra_LoginPhone_v1.2.6\input\Nootp.txt
+D:\TASK_VFARM\000_HOTMAIL_ENTRA\TOOL\Tool_Entra_LoginPhone_v1.2.6\input\SentOTPFail.txt
+D:\TASK_VFARM\000_HOTMAIL_ENTRA\TOOL\Tool_Entra_LoginPhone_v1.2.6\input\Thread.txt
+D:\TASK_VFARM\000_HOTMAIL_ENTRA\TOOL\Tool_Entra_LoginPhone_v1.2.6\input\UrlGetOtp.txt
+D:\TASK_VFARM\000_HOTMAIL_ENTRA\TOOL\Tool_Entra_LoginPhone_v1.2.6\input\UrlRenewOtp.txt
+D:\TASK_VFARM\000_HOTMAIL_ENTRA\TOOL\Tool_Entra_LoginPhone_v1.2.6\input\UserAgain.txt
+D:\TASK_VFARM\000_HOTMAIL_ENTRA\TOOL\Tool_Entra_LoginPhone_v1.2.6\Request_Login_Phone_v1.2.6.exe

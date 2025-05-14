@@ -140,11 +140,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\Request_Login_Phone_v1.2.4.csproj",
-      "projectName": "Request_Login_Phone_v1.2.4",
-      "projectPath": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\Request_Login_Phone_v1.2.4.csproj",
+      "projectUniqueName": "D:\\TASK_VFARM\\0000_CODE\\Tool_Request\\Request_Entra_Login_Phone\\Request_Login_Phone_v1.2.6.csproj",
+      "projectName": "Request_Login_Phone_v1.2.6",
+      "projectPath": "D:\\TASK_VFARM\\0000_CODE\\Tool_Request\\Request_Entra_Login_Phone\\Request_Login_Phone_v1.2.6.csproj",
       "packagesPath": "C:\\Users\\Quang Huy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Quang Huy\\Desktop\\Vfarm C#\\request_login_phone\\obj\\publish\\win-x64\\",
+      "outputPath": "D:\\TASK_VFARM\\0000_CODE\\Tool_Request\\Request_Entra_Login_Phone\\obj\\publish\\win-x64\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -188,7 +188,7 @@ namespace Auther.OTP
             _client.DefaultRequestHeaders.UserAgent.ParseAdd(useragain);
         }
 
-        public async Task<byte> LoginAsysc(string email, string password ,string phone, string useragain)
+        public async Task<byte> LoginAsysc(string email, string password ,string phone,string group, string useragain)
         {
             try
             {
@@ -306,33 +306,61 @@ namespace Auther.OTP
                 #endregion
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 // get otp cũ
-                #region GETOTPOLD1()
+                int? k_getotpfarmx = 0;
                 string? otpold1 = string.Empty;
-                try
+                #region GETOTPOLD1_VFARMOTP()
+                if (k_getotpfarmx == 1)
                 {
-                    VFarmOTP.GetOTPVFarmRenew(UrlRenewOTP, phone);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Warning[{phone}] : Giửi Renew Fail ({ex.Message})");
-                    return 0;
-                }
-                try
-                {
-                    otpold1 = await VFarmOTP.GetOTPVFarmm(UrlGetOTP, phone);
-                    if (!string.IsNullOrEmpty(otpold1))
+                    try
                     {
-                        Console.WriteLine($"Suscces[{phone}] : otpold1 ({otpold1})");
+                        VFarmOTP.GetOTPVFarmRenew(UrlRenewOTP, phone);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        Console.WriteLine($"Suscces[{phone}] : NO OTPOLD 1");
+                        Console.WriteLine($"Warning[{phone}] : Giửi Renew Fail ({ex.Message})");
+                        return 0;
+                    }
+                    try
+                    {
+                        otpold1 = await VFarmOTP.GetOTPVFarmm(UrlGetOTP, phone);
+                        if (!string.IsNullOrEmpty(otpold1))
+                        {
+                            Console.WriteLine($"Suscces[{phone}] : otpold1 ({otpold1})");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Suscces[{phone}] : NO OTPOLD 1");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Warning[{phone}] : GET OTP OLD1 Fail ({ex.Message})");
+                        return 0;
                     }
                 }
-                catch (Exception ex)
+                #endregion
+                // getotpold report
+                int? k_getotpreport = 1;
+                #region GetOtpReport()
+                if (k_getotpreport == 1)
                 {
-                    Console.WriteLine($"Warning[{phone}] : GET OTP OLD1 Fail ({ex.Message})");
-                    return 0;
+                    try
+                    {
+                        otpold1 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
+                        if (!string.IsNullOrEmpty(otpold1))
+                        {
+                            Console.WriteLine($"Suscces[{phone}] : otpold1 ({otpold1})");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Suscces[{phone}] : NO OTPOLD 1");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Warning[{phone}] : GET OTP OLD1 Fail ({ex.Message})");
+                        return 0;
+                    }
                 }
                 #endregion
                 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -439,44 +467,89 @@ namespace Auther.OTP
                 string? otp1 = string.Empty;
                 int count1 = 10;
                 Console.WriteLine($"Suscces[{phone}] : GetOTP");
-                try
-                {
-                    VFarmOTP.GetOTPVFarmRenew(UrlRenewOTP,phone);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Warning[{phone}] : Giửi Renew Fail ({ex.Message})");
-                    return 0;
-                }
-                while (count1 > 0)
+                int k_vfarmotprenew = 0;
+                #region getotpvfamotprenew()
+                if (k_vfarmotprenew == 1 )
                 {
                     try
                     {
-                        otp1 = await VFarmOTP.GetOTPVFarmm(UrlGetOTP, phone);
-                        if (!string.IsNullOrEmpty(otp1) && otp1 != otpold1 )
-                        {
-                            //Console.WriteLine($"Suscces[{phone}] : {otp}");
-                            string dirPath = $"output\\{DateTime.Now:dd_MM_yyyy}";
-                            Directory.CreateDirectory(dirPath); // Tạo nếu chưa có
-                            lock (lockObjectOTP)
-                            {
-                                File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\phoneUsed.txt", $"{email}|{password}|{phone}" + Environment.NewLine);
-                                File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\otp.txt", $"{phone}|{otp1}" + Environment.NewLine);
-                            }
-                            break;
-                        }
-
-                        count1--;
-                        await Task.Delay(3000);
-
+                        VFarmOTP.GetOTPVFarmRenew(UrlRenewOTP, phone);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
-                        Console.WriteLine($"Warning[{phone}] : GET OTP1 Fail ({ex.Message})");
+                        Console.WriteLine($"Warning[{phone}] : Giửi Renew Fail ({ex.Message})");
                         return 0;
                     }
-                    
                 }
+                #endregion
+                #region getotpvframeotp1()
+                if (k_getotpfarmx == 1)
+                {
+                    while (count1 > 0)
+                    {
+                        try
+                        {
+                            otp1 = await VFarmOTP.GetOTPVFarmm(UrlGetOTP, phone);
+                            if (!string.IsNullOrEmpty(otp1) && otp1 != otpold1)
+                            {
+                                //Console.WriteLine($"Suscces[{phone}] : {otp}");
+                                string dirPath = $"output\\{DateTime.Now:dd_MM_yyyy}";
+                                Directory.CreateDirectory(dirPath); // Tạo nếu chưa có
+                                lock (lockObjectOTP)
+                                {
+                                    File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\phoneUsed.txt", $"{email}|{password}|{phone}" + Environment.NewLine);
+                                    File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\otp.txt", $"{phone}|{otp1}" + Environment.NewLine);
+                                }
+                                break;
+                            }
+
+                            count1--;
+                            await Task.Delay(3000);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Warning[{phone}] : GET OTP1 Fail ({ex.Message})");
+                            return 0;
+                        }
+
+                    }
+                }
+                #endregion
+                #region getotpreport()
+                if (k_getotpreport==1)
+                {
+                    while (count1 > 0)
+                    {
+                        try
+                        {
+                            otp1 = await VFarmOTP.GetOTPFarm(UrlGetOTP, phone);
+                            if (!string.IsNullOrEmpty(otp1) && otp1 != otpold1)
+                            {
+                                //Console.WriteLine($"Suscces[{phone}] : {otp}");
+                                string dirPath = $"output\\{DateTime.Now:dd_MM_yyyy}";
+                                Directory.CreateDirectory(dirPath); // Tạo nếu chưa có
+                                lock (lockObjectOTP)
+                                {
+                                    File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\phoneUsed.txt", $"{email}|{password}|{phone}|{group}" + Environment.NewLine);
+                                    File.AppendAllText($"output\\{DateTime.Now.ToString("dd_MM_yyyy")}\\otp.txt", $"{email}|{password}|{phone}|gr{group}|{otp1}" + Environment.NewLine);
+                                }
+                                break;
+                            }
+
+                            count1--;
+                            await Task.Delay(3000);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Warning[{phone}] : GET OTP1 Fail ({ex.Message})");
+                            return 0;
+                        }
+
+                    }
+                }
+                #endregion
                 #endregion
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 // Post OTP 1

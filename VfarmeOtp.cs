@@ -25,7 +25,7 @@ namespace Auther.OTP
         {
             var responseMessage = await Program.httpClient.GetAsync($"{url}{phone}");
             var content = await responseMessage.Content.ReadAsStringAsync();
-
+            
         }
 
 

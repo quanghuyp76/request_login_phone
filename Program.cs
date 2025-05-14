@@ -23,13 +23,13 @@ namespace Auther.OTP
         {
             Console.OutputEncoding = Encoding.UTF8;
 
-            Console.Write("Nhập số vòng lặp: ");
+            Console.Write("Nhập số otp cần chay: ");
 
-            int totalLoops;
+            int totalotp;
 
-            while (!int.TryParse(Console.ReadLine(), out totalLoops) || totalLoops <= 0)
+            while (!int.TryParse(Console.ReadLine(), out totalotp) || totalotp <= 0)
             {
-                Console.Write("Số vòng lặp không hợp lệ: ");
+                Console.Write("Số OTP không hợp lệ: ");
             }
 
             Console.Write("Thời gian giữa các vòng lặp: ");
@@ -78,9 +78,28 @@ namespace Auther.OTP
                 Console.Write("Bỏ qua sleep");
             }
 
+            int totalLoops = 9999;
+            string dirPath = $"output\\{DateTime.Now:dd_MM_yyyy}";
+            Directory.CreateDirectory(dirPath);
 
+            string otpFilePath = Path.Combine(dirPath, "otp.txt");
+            if (!File.Exists(otpFilePath))
+            {
+                File.WriteAllText(otpFilePath, string.Empty);
+                Console.WriteLine($" Đã tạo file mới: {otpFilePath}");
+            }
+            else
+            {
+                Console.WriteLine($"ℹ File đã tồn tại: {otpFilePath}");
+            }
+            string[] data_otp = await File.ReadAllLinesAsync(otpFilePath);
+            int nonEmptyLineCount = data_otp.Count(line => !string.IsNullOrWhiteSpace(line));
 
-
+            if (nonEmptyLineCount > totalotp)
+            {
+                Console.WriteLine($" Đã chạy {nonEmptyLineCount} otp , dừng chương trình.");
+                totalLoops = 0;
+            }
 
             File.WriteAllText("input\\SentOTPFail.txt", string.Empty);
 
@@ -126,11 +145,23 @@ namespace Auther.OTP
                 {
                     Console.WriteLine(e.Message);
                 }
+                
                 finally
                 {
                     Console.WriteLine($"Hoàn thành vòng lặp {totalLoops}");
                     totalLoops = totalLoops - 1;
                     await WaitSeconds(sleep);
+                    
+                    string[] data_otp1 = await File.ReadAllLinesAsync(otpFilePath);
+                    int nonEmptyLineCount1 = data_otp1.Count(line => !string.IsNullOrWhiteSpace(line));
+
+                    if (nonEmptyLineCount1 > totalotp)
+                    {
+                        Console.WriteLine($" Đã chạy {nonEmptyLineCount} otp , dừng chương trình.");
+                        totalLoops = 0;
+                    }
+
+
                 }
                 if (totalLoops == 0)
                 {
@@ -167,18 +198,19 @@ namespace Auther.OTP
                 string? email = string.Empty;
                 string? password = string.Empty;
                 string? phone = string.Empty;
-                if (parts.Length == 3)
+                string? group = string.Empty;
+                int x = parts.Length;
+                if(parts.Length ==2)
+                {
+                    phone = data.Split('|')[0];
+                    group = data.Split('|')[1];
+                }
+                else
                 {
                     email = data.Split('|')[0];
                     password = data.Split('|')[1];
                     phone = data.Split('|')[2];
-                   
-                }
-                else
-                {
-                    phone = data;
-                    email = "no";
-                    password = "no";
+                    group = data.Split('|')[3];
                 }    
 
                 string proxy = listProxy[random.Next(0, listProxy.Length)];
@@ -200,7 +232,7 @@ namespace Auther.OTP
 
                 LoginAuther loginAuther = new LoginAuther(useragain) { UrlGetOTP = UrlGetOTp, webProxy = webProxy, UrlRenewOTP= UrlRenewOTP };
 
-                var Logins1 = await loginAuther.LoginAsysc(email, password, phone, useragain);
+                var Logins1 = await loginAuther.LoginAsysc(email, password, phone, group ,useragain);
             }
         }
         private static object lockObjectLoginFail = new object();
